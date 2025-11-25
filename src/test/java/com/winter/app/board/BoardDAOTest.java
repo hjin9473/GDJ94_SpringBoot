@@ -39,7 +39,7 @@ class BoardDAOTest {
 		Map<String, Object> map = new HashMap<>();
 		map.put("t", "update T");
 		map.put("c", "update C");
-		map.put("n", 105L);
+		map.put("n", 108L);
 		
 	    int result = boardDAO.update(map);
 	    assertEquals(1, result);
