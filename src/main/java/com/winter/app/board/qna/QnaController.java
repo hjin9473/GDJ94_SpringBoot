@@ -1,4 +1,4 @@
-package com.winter.app.board.notice;
+package com.winter.app.board.qna;
 
 import java.util.List;
 
@@ -16,16 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/notice/*")
 @Slf4j
-public class NoticeController {
+public class QnaController {
 	
 	@Autowired
-	private NoticeService noticeService;
+	private QnaService noticeService;
 	
 	@GetMapping("list")
 	public void list(Pager pager, Model model)throws Exception{
 		
 
-		List<NoticeDTO> list= noticeService.list(pager);
+		List<QnaDTO> list= noticeService.list(pager);
 	
 		model.addAttribute("list", list);
 		model.addAttribute("pager", pager);

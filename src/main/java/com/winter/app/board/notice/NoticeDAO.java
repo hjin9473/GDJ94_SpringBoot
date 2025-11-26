@@ -4,18 +4,25 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.winter.app.util.Pager;
+
 @Mapper
 public interface NoticeDAO {
 	
 	public NoticeDTO detail(NoticeDTO noticeDTO) throws Exception;
 	
-	public List<NoticeDTO> list() throws Exception;
+	public List<NoticeDTO> list(Pager pager) throws Exception;
+	
+	public Long getTotalCount(Pager pager) throws Exception;
 	
 	public int add(NoticeDTO noticeDTO) throws Exception;
 	
 	public int update(NoticeDTO noticeDTO) throws Exception;
 	
 	public int delete(NoticeDTO noticeDTO) throws Exception;
+
+	public Long count() throws Exception;
+	
 	
 	
 }

@@ -24,14 +24,6 @@
     		INSERT INTO notice (board_title, board_writer, board_contents, board_date, board_hit)
     		VALUES (#{boardTitle}, #{boardWriter}, #{boardContents}, now(), 0)
     	</insert>
-    	
-    	<delete id="delete" parameterType="NoticeDTO">
-    		DELETE FROM notice WHERE board_num=#{boardNum} 
-    	</delete>
-    	
-    	<update id="update" parameterType="NoticeDTO">
-    		UPDATE notice SET board_title=#{boardTitle}, board_contents=#{boardContents} 
-    		WHERE board_num=#{boardNum}
-    	</update>
+
     
     </mapper>
