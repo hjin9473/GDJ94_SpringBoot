@@ -23,7 +23,7 @@
 		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" class="flex-grow-1">
        			
        			<!-- topbar -->
        			<c:import url="/WEB-INF/views/template/topbar.jsp"></c:import>
@@ -33,7 +33,7 @@
                 <div class="container-fluid">
                 	<!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Notice List</h1>
+                        <h1 class="h3 mb-0 text-gray-800">공지사항</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
@@ -41,13 +41,39 @@
                     <!-- Content Row -->
                     <div class="row">
                     
-                    <!-- 생성한 contents 작성 -->
+                    <table class="table">  
+						<thead class="thead-dark">    
+							<tr>      
+								<th scope="col">번호</th>      
+								<th scope="col">제목</th>      
+								<th scope="col">작성자</th>      
+								<th scope="col">작성일</th>
+								<th scope="col">조회수</th>    
+							</tr>  
+						</thead>  
+						<tbody>
+							<c:forEach items="${list}" var="dto">
+								<tr>      
+									<th scope="row">${dto.boardNum}</th>
+									<td><a href="./detail?boardNum=${dto.boardNum}">${dto.boardTitle}</a></td>      
+									<td>${dto.boardWriter}</td>      
+									<td>${dto.boardDate}</td>
+									<td>${dto.boardHit}</td>    
+								</tr> 
+							</c:forEach>
+							<c:if test="${empty list}">
+								<tr>
+									<td colspan="5">등록된 공지사항이 없습니다.</td>
+								</tr>
+							</c:if>
+						</tbody>
+					</table>
+				</div>
                     
                     </div>
                 
                 </div>
                 <!-- /.container-fluid -->
-            </div> 
             <!-- End of Main Content -->
             
             <!-- Footer -->
@@ -60,27 +86,6 @@
             </footer>
             <!-- End of Footer -->
         </div>
-	
-	</div>
-	
-	<a href="#page-top"></a>
-
-	<div class="modal fade"></div>
-   <!-- Bootstrap core JavaScript-->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/js/demo/chart-area-demo.js"></script>
-    <script src="/js/demo/chart-pie-demo.js"></script>	
+	<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
 </body>
 </html>
