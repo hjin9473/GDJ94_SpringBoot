@@ -15,13 +15,14 @@ public interface NoticeDAO {
 	
 	public Long getTotalCount(Pager pager) throws Exception;
 	
+	public Long count(Pager pager) throws Exception;
+	
 	public int add(NoticeDTO noticeDTO) throws Exception;
 	
 	public int update(NoticeDTO noticeDTO) throws Exception;
 	
 	public int delete(NoticeDTO noticeDTO) throws Exception;
 
-	public Long count() throws Exception;
 	
 	
 	

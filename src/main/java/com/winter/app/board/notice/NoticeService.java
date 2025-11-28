@@ -15,7 +15,7 @@ public class NoticeService {
 	
 	public List<NoticeDTO> list (Pager pager)throws Exception{
 		//1. totalCount 구하기
-		Long totalCount= noticeDAO.count();
+		Long totalCount= noticeDAO.count(pager);
 		
 		pager.pageing(totalCount);
 
@@ -29,6 +29,7 @@ public class NoticeService {
 	
 	public int add(NoticeDTO noticeDTO)throws Exception{
 		return noticeDAO.add(noticeDTO);
+		
 	}
 	
 	public int update(NoticeDTO noticeDTO)throws Exception{
