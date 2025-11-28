@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>공지 수정</title>
 <c:import url="/WEB-INF/views/template/head.jsp"></c:import>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
 	<div id="wrapper">
@@ -30,18 +31,18 @@
 						<input type="hidden" name="boardNum" value="${dto.boardNum}">
 						
 						<div class="mb-3">
+						  <label for="boardWriter" class="form-label">작성자</label>
+						  <input type="text" class="form-control" id="boardWriter" name="boardWriter" value="${dto.boardWriter}" readonly>
+						</div>
+						<div class="mb-3">
 						  <label for="boardTitle" class="form-label">제목</label>
 						  <input type="text" class="form-control" id="boardTitle" name="boardTitle" value="${dto.boardTitle}" required>
 						</div>
 						
-						<div class="mb-3">
-						  <label for="boardWriter" class="form-label">작성자</label>
-						  <input type="text" class="form-control" id="boardWriter" name="boardWriter" value="${dto.boardWriter}" readonly>
-						</div>
 						
 						<div class="mb-3">
 						  <label for="boardContents" class="form-label">내용</label>
-						  <textarea class="form-control" id="boardContents" name="boardContents" rows="10" required>${dto.boardContents}</textarea>
+						  <textarea class="form-control" id="boardContents" name="boardContents" rows="10" required>${dto.boardContents}</textarea> 
 						</div>
 						
 						<div class="d-grid gap-2">
@@ -65,5 +66,17 @@
 	</div>
 
 	<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
+    
+    <script>
+    	$(document).ready(function() {
+    	  $('#boardContents').summernote({
+    	  	height: 300,
+            focus: true
+    	  });
+    	});
+    </script>
 </body>
 </html>

@@ -39,6 +39,9 @@
 					</div>
 
 					<div class="d-flex justify-content-end">
+					<c:if test="${category ne 'Notice'}">
+						<a href="../qna/reply?boardNum=${dto.boardNum}" class="btn btn-outline-success mr-2">답글</a>
+						</c:if>
 						<a href="./update?boardNum=${dto.boardNum}"
 							class="btn btn-primary mr-2">수정하기</a>
 						<button type="button" class="btn btn-danger" data-toggle="modal"

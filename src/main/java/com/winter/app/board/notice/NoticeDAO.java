@@ -1,27 +1,13 @@
 package com.winter.app.board.notice;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
-import com.winter.app.util.Pager;
+import com.winter.app.board.BoardDAO;
 
 @Mapper
-public interface NoticeDAO {
+public interface NoticeDAO extends BoardDAO{
 	
-	public NoticeDTO detail(NoticeDTO noticeDTO) throws Exception;
 	
-	public List<NoticeDTO> list(Pager pager) throws Exception;
-	
-	public Long getTotalCount(Pager pager) throws Exception;
-	
-	public Long count(Pager pager) throws Exception;
-	
-	public int add(NoticeDTO noticeDTO) throws Exception;
-	
-	public int update(NoticeDTO noticeDTO) throws Exception;
-	
-	public int delete(NoticeDTO noticeDTO) throws Exception;
 
 	
 	

@@ -5,38 +5,46 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.board.BoardDTO;
+import com.winter.app.board.BoardService; // 인터페이스 임포트
 import com.winter.app.util.Pager;
 
 @Service
-public class NoticeService {
-
+public class NoticeService implements BoardService {
+    
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	public List<NoticeDTO> list (Pager pager)throws Exception{
-		//1. totalCount 구하기
+    // 1. LIST
+	@Override
+	public List<BoardDTO> list (Pager pager)throws Exception{
+		// 1. totalCount 구하기
 		Long totalCount= noticeDAO.count(pager);
-		
 		pager.pageing(totalCount);
-
-		
 		return noticeDAO.list(pager);
 	}
 	
-	public NoticeDTO detail(NoticeDTO noticeDTO)throws Exception{
-		return noticeDAO.detail(noticeDTO);
+	@Override
+	public BoardDTO detail(BoardDTO boardDTO)throws Exception{
+        // DAO에서 조회된 BoardDTO (실제로는 NoticeDTO)를 반환합니다.
+		return noticeDAO.detail(boardDTO);
 	}
 	
-	public int add(NoticeDTO noticeDTO)throws Exception{
+	@Override
+	public int add(BoardDTO boardDTO)throws Exception{
+		NoticeDTO noticeDTO = (NoticeDTO)boardDTO; 
 		return noticeDAO.add(noticeDTO);
-		
 	}
 	
-	public int update(NoticeDTO noticeDTO)throws Exception{
+	@Override
+	public int update(BoardDTO boardDTO)throws Exception{
+		NoticeDTO noticeDTO = (NoticeDTO)boardDTO; 
 		return noticeDAO.update(noticeDTO);
 	}
 	
-	public int delete(NoticeDTO noticeDTO)throws Exception{
+	@Override
+	public int delete(BoardDTO boardDTO)throws Exception{
+		NoticeDTO noticeDTO = (NoticeDTO)boardDTO;
 		return noticeDAO.delete(noticeDTO);
 	}
 	

@@ -19,24 +19,21 @@
 				<div class="container-fluid">
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">질문 추가하기</h1>
+						<h1 class="h3 mb-0 text-gray-800">추가하기</h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 					</div>
 					<div class="container-fluid">
-						<form action="./add" method="post">
-							<div class="mb-3">
-								<label for="boardTitle" class="form-label">제목</label> 
-								<input
-									type="text" class="form-control" id="boardTitle"
-									name="boardTitle" required>
-							</div>
+		        <form method="post">
+		            <input type="hidden" name="boardNum" value="${dto.boardNum}">
 							<div class="mb-3">
 								<label for="boardWriter" class="form-label">작성자</label> 
-								<input
-									type="text" class="form-control" id="boardWriter"
-									name="boardWriter" required>
+								<input type="text" class="form-control" id="boardWriter" name="boardWriter" required>
+							</div>
+							<div class="mb-3">
+								<label for="boardTitle" class="form-label">제목</label> 
+								<input type="text" class="form-control" id="boardTitle"	name="boardTitle" required>
 							</div>
 							<div class="mb-3">
 								<label for="boardContents" class="form-label">내용</label>
@@ -62,11 +59,8 @@
 	</div>
 
 <c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
-    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
 
     <script>
