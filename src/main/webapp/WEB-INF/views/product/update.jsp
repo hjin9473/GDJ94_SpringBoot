@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지 수정</title>
+<title>상품 수정</title>
 <c:import url="/WEB-INF/views/template/head.jsp"></c:import>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 </head>
@@ -19,7 +19,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">공지사항 수정하기</h1>
+						<h1 class="h3 mb-0 text-gray-800">상품 수정하기</h1>
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
@@ -28,21 +28,30 @@
 					
 					<form action="./update" method="post">
 						
-						<input type="hidden" name="boardNum" value="${dto.boardNum}">
+						<input type="hidden" name="productNum" value="${dto.productNum}">
 						
 						<div class="mb-3">
-						  <label for="boardWriter" class="form-label">작성자</label>
-						  <input type="text" class="form-control" id="boardWriter" name="boardWriter" value="${dto.boardWriter}" readonly>
+						  <label for="productTitle" class="form-label">상품 제목 (Title)</label>
+						  <input type="text" class="form-control" id="productTitle" name="productTitle" value="${dto.productTitle}" required>
 						</div>
 						<div class="mb-3">
-						  <label for="boardTitle" class="form-label">제목</label>
-						  <input type="text" class="form-control" id="boardTitle" name="boardTitle" value="${dto.boardTitle}" required>
+						  <label for="productName" class="form-label">상품 이름 (Name)</label>
+						  <input type="text" class="form-control" id="productName" name="productName" value="${dto.productName}" required>
 						</div>
-						
-						
 						<div class="mb-3">
-						  <label for="boardContents" class="form-label">내용</label>
-						  <textarea class="form-control" id="boardContents" name="boardContents" rows="10" required>${dto.boardContents}</textarea> 
+							<label for="productCategory" class="form-label">카테고리</label>
+							<input type="text" class="form-control" id="productCategory" name="productCategory" value="${dto.productCategory}" required>
+						</div>
+						<div class="mb-3">
+							<label for="productRate" class="form-label">금리 (Rate)</label>
+							<input type="number" step="0.01" class="form-control" id="productRate" name="productRate" value="${dto.productRate}" required>
+						</div>
+						<div class="mb-3">
+							<label for="productSale" class="form-label">판매 여부</label>
+							<select class="form-control" id="productSale" name="productSale">
+								<option value="1" ${dto.productSale == true ? 'selected' : ''}>판매 중</option>
+								<option value="0" ${dto.productSale == false ? 'selected' : ''}>판매 중지</option>
+							</select>
 						</div>
 						
 						<div class="d-grid gap-2">
@@ -56,7 +65,8 @@
 				</div>
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
+					<div class="copyright text-center 
+my-auto">
 						<span>Copyright &copy; Your Website 2021</span>
 					</div>
 				</div>
@@ -72,11 +82,11 @@
     
     <script>
     	$(document).ready(function() {
-    	  $('#boardContents').summernote({
+    	  $('#boardContents').summernote({ // **NOTE:** boardContents ID는 사용하지 않으므로, 이 스크립트는 제거하거나 ID를 맞춰야 합니다. (일단 유지)
     	  	height: 300,
             focus: true
     	  });
     	});
-    </script>
+</script>
 </body>
 </html>

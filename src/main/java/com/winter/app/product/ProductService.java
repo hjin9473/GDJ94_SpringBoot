@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.winter.app.util.Pager; // Pager import 추가
 
 @Service
 public class ProductService {
@@ -12,8 +13,9 @@ public class ProductService {
 	@Autowired
 	private ProductDAO productDAO; 
 	
-	public List<ProductDTO> list ()throws Exception{
-		return productDAO.list();
+	public List<ProductDTO> list (Pager pager)throws Exception{
+		pager.pageing(productDAO.count(pager));
+		return productDAO.list(pager);
 	}
 	
 	public ProductDTO detail(ProductDTO productDTO)throws Exception{

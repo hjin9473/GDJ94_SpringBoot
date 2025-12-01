@@ -5,34 +5,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 목록</title>
 <c:import url="/WEB-INF/views/template/head.jsp"></c:import>
 </head>
 <body id="page-top">
 	<div id="wrapper">
-		<!-- side bar -->
 		<c:import url="/WEB-INF/views/template/sidebar.jsp"></c:import>
-		<!-- side bar -->
-
-		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
-			<!-- Main Content -->
 			<div id="content">
 				<c:import url="/WEB-INF/views/template/topbar.jsp"></c:import>
-				<!-- Begin Page Content -->
 				<div class="container-fluid">
-					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4 ">
 						
 						<h1 class="h3 mb-0 text-gray-800">${category}</h1>
-				<!-- topbar -->
 				<div class="row justify-content-center mb-3">
 					<form class="form-inline method-get" action="./list">
 						<select name="kind" class="form-control mr-2">
-						    <option value="k1" ${param.kind eq 'k1' ? 'selected="selected"' : ''}>제목</option>
-						    <option value="k2" ${param.kind eq 'k2' ? 'selected="selected"' : ''}>내용</option>
-						    <option value="k3" ${param.kind eq 'k3' ? 'selected="selected"' : ''}>작성자</option>
+						    <option value="k1" ${param.kind eq 'k1' ?
+'selected="selected"' : ''}>제목 (productTitle)</option>
+						    <option value="k2" ${param.kind eq 'k2' ?
+'selected="selected"' : ''}>상품 이름 (productName)</option>
+						    <option value="k3" ${param.kind eq 'k3' ?
+'selected="selected"' : ''}>카테고리 (productCategory)</option>
 						</select> 
 						<input placeholder="검색어를 입력하세요" type="text" name="search"
 							class="form-control mr-2" value="${param.search}">
@@ -54,34 +49,37 @@
 						</div>
 					</c:if>
 
-					<!-- Content Row -->
 					<div class="row justify-content-center">
-						<table class="table col-sm-8 mt-5">
+						<table class="table col-sm-10 mt-5">
 							<thead class="thead-dark">
 								<tr>
-									<th>Num</th>
-									<th>Title</th>
-									<th>Writer</th>
-									<th>Date</th>
-									<th>Hit</th>
+									<th>번호 (Num)</th>
+									<th>제목 (Title)</th>
+									<th>상품 이름 (Name)</th>
+									<th>카테고리 (Category)</th>
+									<th>금리 (Rate)</th>
+									<th>판매 (Sale)</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${list}" var="dto">
 									<tr>
-										<td>${dto.boardNum}</td>
+										<td>${dto.productNum}</td>
 										<td>
-										<c:catch>
-										<c:forEach begin="1" end="${dto.boardDepth}">--</c:forEach>										
-										</c:catch>
 										
-											<a href="./detail?boardNum=${dto.boardNum}">${dto.boardTitle}</a>
+											<a href="./detail?productNum=${dto.productNum}">${dto.productTitle}</a>
 										
 											
 										</td>
-										<td>${dto.boardWriter}</td>
-										<td>${dto.boardDate}</td>
-										<td>${dto.boardHit}</td>
+										<td>${dto.productName}</td>
+										<td>${dto.productCategory}</td>
+										<td>${dto.productRate}%</td>
+										<td>
+											<c:choose>
+												<c:when test="${dto.productSale == true}">판매 중</c:when>
+												<c:otherwise>판매 중지</c:otherwise>
+											</c:choose>
+										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -92,50 +90,51 @@
 				        <ul class="pagination ">
 				            
 				            <li class="page-item">
-				                <a class="page-link"
+				    
+            <a class="page-link"
 				                   href="./list?page=${pager.begin-1}&kind=${param.kind}&search=${param.search}" 
 				                   aria-label="Previous">
 				                    <span aria-hidden="true">&laquo;</span>
 				                </a>
-				            </li>
+				           
+ </li>
             
 					            <c:forEach begin="${pager.begin}" end="${pager.end}" var="i">
-					                <li class="page-item ${i == pager.page ? 'active' : ''}">
+					                <li class="page-item ${i == pager.page ?
+'active' : ''}">
 					                    <a class="page-link"
 					                       href="./list?page=${i}&kind=${param.kind}&search=${param.search}">
 					                        ${i}
 					                    </a>
-					                </li>
+					          
+      </li>
 					            </c:forEach>
 					            
 					            <li class="page-item">
 					                <a class="page-link"
 					                   href="./list?page=${pager.end+1}&kind=${param.kind}&search=${param.search}" 
 					                   aria-label="Next"> 
+
 					                       <span aria-hidden="true">&raquo;</span>
 					                </a>
 					            </li>
 					        </ul>
 					    </nav>
 					    <div>
-								<a href="./add"  class="btn btn-primary">글쓰기</a>
+								<a href="./add"  class="btn btn-primary">상품 등록</a>
 						</div>
     		</div>
 				</div>
-				<!-- /.container-fluid -->
-			</div>
-			<!-- End of Main Content -->
-
-			<!-- Footer -->
+				</div>
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2021</span>
+						<span>Copyright &copy;
+Your Website 2021</span>
 					</div>
 				</div>
 			</footer>
-			<!-- End of Footer -->
-		</div>
+			</div>
 
 	</div>
 

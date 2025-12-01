@@ -7,15 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.winter.app.util.Pager;
 
-@Controller
-// @RequestMapping("/product/*")가 누락되어 있다면 추가해야 합니다.
 // 현재 파일에는 @RequestMapping이 없으므로, 모든 매핑에 /product/를 붙이거나 환경 설정에 의존합니다.
 // 여기서는 기본 매핑이 없는 상태로 path만 수정합니다.
+@Controller
+@RequestMapping("/product/*")
 public class ProductController {
 	
 	@Autowired
