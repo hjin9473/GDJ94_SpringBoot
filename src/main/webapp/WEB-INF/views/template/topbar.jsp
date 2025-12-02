@@ -48,7 +48,11 @@
                         </form>
                     </div>
                 </li>
-
+								<li class="nav-item mx-1">
+                            <a href="/users/register" class="nav-link d-flex align-items-center text-primary">
+                                회원가입
+                            </a>
+                        </li>
                 <!-- Nav Item - Alerts -->
                 <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"

@@ -35,7 +35,7 @@ public class UsersController {
             redirectAttributes.addFlashAttribute("result", "회원가입 실패");
         }
         
-        return "redirect:./list"; 
+        return "redirect:/"; 
     }
 } 
 	
