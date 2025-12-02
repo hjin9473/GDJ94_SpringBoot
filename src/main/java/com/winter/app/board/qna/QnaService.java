@@ -1,12 +1,19 @@
 package com.winter.app.board.qna;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardDTO;
 import com.winter.app.board.BoardService; // 인터페이스 임포트
+import com.winter.app.files.BoardFileDTO;
+import com.winter.app.files.FileManager;
 import com.winter.app.util.Pager;
 
 @Service
@@ -14,6 +21,12 @@ public class QnaService implements BoardService { // BoardService 구현
 	
 	@Autowired
 	private QnaDAO qnaDAO;
+	
+	@Autowired
+	private FileManager fileManager;
+	
+	@Value("${app.upload.qna}")
+	private String uploadPath;
 	
 	@Override
 	public List<BoardDTO> list (Pager pager)throws Exception{
@@ -28,10 +41,32 @@ public class QnaService implements BoardService { // BoardService 구현
 	}
 	
 	@Override
-	public int add(BoardDTO boardDTO)throws Exception{
+	public int add(BoardDTO boardDTO, MultipartFile [] attach)throws Exception{
+		
+		int result = qnaDAO.add(boardDTO);
+		
 		QnaDTO qnaDTO = (QnaDTO)boardDTO;
-		qnaDAO.add(qnaDTO); // 글 등록
-		return qnaDAO.refUpdate(qnaDTO); // REF 값 업데이트
+		qnaDAO.add(qnaDTO);
+		// 글 등록
+		//1. 파일을 HDD에 저장
+		//	1) 어디에 저장?
+		//	2) 어떤 이름으로 저장?
+		File file = new File(uploadPath);
+		for(MultipartFile f: attach) {
+			if (f== null || f.isEmpty()) {
+				continue;
+			}
+			
+		String fileName = fileManager.fileSave(file, f);
+		
+		//4. 정보를 DB에 저장
+		BoardFileDTO boardFileDTO = new QnaFileDTO();
+		boardFileDTO.setFileName(fileName);
+		boardFileDTO.setFileOrigin(f.getOriginalFilename());
+		boardFileDTO.setBoardNum(boardDTO.getBoardNum());
+		qnaDAO.fileAdd(boardFileDTO);
+		}
+		return result; // REF 값 업데이트
 	}
     
 	@Override

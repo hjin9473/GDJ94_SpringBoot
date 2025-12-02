@@ -25,7 +25,7 @@
 							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 					</div>
 					<div class="container-fluid">
-		        <form method="post">
+		        <form method="post" enctype="multipart/form-data">
 		            <input type="hidden" name="boardNum" value="${dto.boardNum}">
 							<div class="mb-3">
 								<label for="boardWriter" class="form-label">작성자</label> 
@@ -40,6 +40,15 @@
 								<textarea class="form-control" id="boardContents"
 									name="boardContents" rows="10" required></textarea>
 							</div>
+							
+							<div class="form-group">
+								<button type="button" id="fileAdd" class="btn btn-primary">파일추가</button>	
+							</div>
+							<div id="files" class="form-group">
+								
+							</div>
+							
+							
 							<div class="d-grid gap-2">
 								<button type="submit" class="btn btn-primary">등록</button>
 								<a href="./list" class="btn btn-secondary">취소</a>
@@ -71,5 +80,6 @@
     	  });
     	});
     </script>
+    <script src="/js/board/board.js"></script>
 </body>
 </html>

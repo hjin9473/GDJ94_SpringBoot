@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,9 +53,9 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public ModelAndView add(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) throws Exception {
+	public ModelAndView add(NoticeDTO noticeDTO, MultipartFile [] attach, RedirectAttributes redirectAttributes) throws Exception {
 	    ModelAndView mv = new ModelAndView();
-	    int result = noticeService.add(noticeDTO); // NoticeDAO의 add 메서드 호출
+	    int result = noticeService.add(noticeDTO, attach);
 	    
 	    if(result > 0) {
 	        redirectAttributes.addFlashAttribute("result", "공지사항 등록 성공"); 

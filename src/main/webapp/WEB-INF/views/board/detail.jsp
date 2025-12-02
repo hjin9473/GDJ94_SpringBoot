@@ -37,9 +37,17 @@
 							<p>${dto.boardContents}</p>
 						</div>
 					</div>
+					
+					<div>
+						<c:forEach items="${dto.fileDTOs}" var="file">
+							<div>
+								<a href="/files/${category}/${file.fileName}" target="blank">${file.fileOrigin}</a>
+							</div>
+						</c:forEach>
+					</div>
 
 					<div class="d-flex justify-content-end">
-					<c:if test="${category ne 'Notice'}">
+					<c:if test="${category ne 'notice'}">
 						<a href="../qna/reply?boardNum=${dto.boardNum}" class="btn btn-outline-success mr-2">답글</a>
 						</c:if>
 						<a href="./update?boardNum=${dto.boardNum}"
