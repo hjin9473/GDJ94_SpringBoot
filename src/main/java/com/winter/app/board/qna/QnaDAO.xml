@@ -107,6 +107,11 @@
             )
     	</insert>
     	
+    	<insert id="fileAdd" parameterType="QnaFileDTO">
+    		INSERT INTO qna_files (file_name, file_origin, board_num) 
+    		VALUES (#{fileName}, #{fileOrigin}, #{boardNum});
+    	</insert>
+    	
 
     
     </mapper>

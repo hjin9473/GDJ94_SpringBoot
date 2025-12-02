@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.notice.NoticeDAO;
 import com.winter.app.board.notice.NoticeDTO;
@@ -15,7 +16,7 @@ public interface BoardService {
 	
 	public BoardDTO detail(BoardDTO boardDTO)throws Exception;
 	
-	public int add(BoardDTO boardDTO)throws Exception;
+	public int add(BoardDTO boardDTO, MultipartFile [] attach)throws Exception;
 	
 	
 	public int update(BoardDTO boardDTO)throws Exception;

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 상세</title>
+<title>공지 상세</title>
 <c:import url="/WEB-INF/views/template/head.jsp"></c:import>
 </head>
 <body id="page-top">
@@ -16,37 +16,41 @@
 				<c:import url="/WEB-INF/views/template/topbar.jsp"></c:import>
 
 				<div class="container-fluid">
-					<h1 class="h3 mb-4 text-gray-800">상품 상세</h1>
+					<h1 class="h3 mb-4 text-gray-800">공지사항 상세</h1>
 
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
-								상품 번호: ${dto.productNum} - ${dto.productTitle}</h6>
+								${dto.boardTitle}</h6>
 						</div>
 						<div class="card-body">
 							<p>
-								<strong>상품 이름:</strong> ${dto.productName}
+								<strong>작성자:</strong> ${dto.boardWriter}
 							</p>
 							<p>
-								<strong>카테고리:</strong> ${dto.productCategory}
+								<strong>작성일:</strong> ${dto.boardDate}
 							</p>
 							<p>
-								<strong>금리:</strong> ${dto.productRate}%
-							</p>
-							<p>
-								<strong>판매 여부:</strong> 
-								<c:choose>
-									<c:when test="${dto.productSale == true}">판매 중</c:when>
-									<c:otherwise>판매 중지</c:otherwise>
-								</c:choose>
+								<strong>조회수:</strong> ${dto.boardHit}
 							</p>
 							<hr>
-							<p> ${dto.productTitle} 상품에 대한 정보입니다. </p>
+							<p>${dto.boardContents}</p>
 						</div>
+					</div>
+					
+					<div>
+						<c:forEach items="${dto.fileDTOs}" var="file">
+							<div>
+								<a href="/files/${category}/${file.fileName}" target="blank">${file.fileOrigin}</a>
+							</div>
+						</c:forEach>
 					</div>
 
 					<div class="d-flex justify-content-end">
-					    <a href="./update?productNum=${dto.productNum}"
+					<c:if test="${category ne 'notice'}">
+						<a href="../qna/reply?boardNum=${dto.boardNum}" class="btn btn-outline-success mr-2">답글</a>
+						</c:if>
+						<a href="./update?boardNum=${dto.boardNum}"
 							class="btn btn-primary mr-2">수정하기</a>
 						<button type="button" class="btn btn-danger" data-toggle="modal"
 							data-target="#deleteModal">삭제하기</button>
@@ -68,13 +72,13 @@
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
-				<div class="modal-body">${dto.productNum}번 상품을 삭제합니다.</div>
+				<div class="modal-body">${dto.boardNum}번 게시물을 삭제합니다.</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
 
 					<form action="./delete" method="post">
-						<input type="hidden" name="productNum" value="${dto.productNum}">
+						<input type="hidden" name="boardNum" value="${dto.boardNum}">
 						<button type="submit" class="btn btn-danger">삭제하기</button>
 					</form>
 				</div>

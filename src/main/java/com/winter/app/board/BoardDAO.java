@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.winter.app.board.notice.NoticeDTO;
 import com.winter.app.board.qna.QnaDTO;
+import com.winter.app.files.BoardFileDTO;
 import com.winter.app.util.Pager;
 
 @Mapper
@@ -24,5 +25,7 @@ public interface BoardDAO {
 	public int update(BoardDTO boardDTO) throws Exception;
 	
 	public int delete(BoardDTO boardDTO) throws Exception;
+	
+	public int fileAdd(BoardFileDTO boardFileDTO) throws Exception;
 
 }
