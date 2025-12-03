@@ -1,12 +1,14 @@
 package com.winter.app.board.notice;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,9 +45,11 @@ public class NoticeService implements BoardService {
 	}
 	
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int add(BoardDTO boardDTO, MultipartFile [] attach)throws Exception{
 		
 		int result = noticeDAO.add(boardDTO);
+		
 		
 		//1. 파일을 HDD에 저장
 		//	1) 어디에 저장?
