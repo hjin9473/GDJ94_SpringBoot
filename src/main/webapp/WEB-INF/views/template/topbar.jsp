@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <!-- Topbar -->
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-            <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                 <i class="fa fa-bars"></i>
             </button>
 
-            <!-- Topbar Search -->
             <form
                 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group">
@@ -22,16 +21,13 @@
                 </div>
             </form>
 
-            <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
 
-                <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                 <li class="nav-item dropdown no-arrow d-sm-none">
                     <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-search fa-fw"></i>
                     </a>
-                    <!-- Dropdown - Messages -->
                     <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                         aria-labelledby="searchDropdown">
                         <form class="form-inline mr-auto w-100 navbar-search">
@@ -48,20 +44,48 @@
                         </form>
                     </div>
                 </li>
-								<li class="nav-item mx-1">
-                            <a href="/users/register" class="nav-link d-flex align-items-center text-primary">
-                                회원가입
+                
+                <ul class="navbar-nav ml-auto">
+
+                <c:choose>
+                    <c:when test="${empty sessionScope.usersDTO}">
+                        <li class="nav-item mx-1">
+                            <a href="/users/login" class="nav-link d-flex align-items-center text-primary">
+                                <i class="fas fa-sign-in-alt fa-sm fa-fw mr-1"></i> 로그인
                             </a>
                         </li>
-                <!-- Nav Item - Alerts -->
+                        <li class="nav-item mx-1">
+                            <a href="/users/register" class="nav-link d-flex align-items-center text-primary">
+                                <i class="fas fa-user-plus fa-sm fa-fw mr-1"></i> 회원가입
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item mx-1 d-flex align-items-center">
+                            <span class="nav-link text-gray-800 font-weight-bold">
+                                ${sessionScope.usersDTO.name}님
+                            </span>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a href="/users/mypage" class="nav-link d-flex align-items-center text-primary">
+                                <i class="fas fa-user fa-sm fa-fw mr-1"></i> 마이페이지
+                            </a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a href="/users/logout" class="nav-link d-flex align-items-center text-danger">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-1"></i> 로그아웃
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+                </ul>
+                
                 <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bell fa-fw"></i>
-                        <!-- Counter - Alerts -->
                         <span class="badge badge-danger badge-counter">3+</span>
                     </a>
-                    <!-- Dropdown - Alerts -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="alertsDropdown">
                         <h6 class="dropdown-header">
@@ -104,15 +128,12 @@
                     </div>
                 </li>
 
-                <!-- Nav Item - Messages -->
                 <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-envelope fa-fw"></i>
-                        <!-- Counter - Messages -->
                         <span class="badge badge-danger badge-counter">7</span>
                     </a>
-                    <!-- Dropdown - Messages -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="messagesDropdown">
                         <h6 class="dropdown-header">
@@ -172,7 +193,6 @@
 
                 <div class="topbar-divider d-none d-sm-block"></div>
 
-                <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -180,7 +200,6 @@
                         <img class="img-profile rounded-circle"
                             src="/img/undraw_profile.svg">
                     </a>
-                    <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">
@@ -206,4 +225,3 @@
             </ul>
 
         </nav>
-        <!-- End of Topbar -->

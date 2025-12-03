@@ -1,6 +1,7 @@
 package com.winter.app.users;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +17,7 @@ public class UsersDTO {
     private String email;
     private String phone;
     private Date birth;
+    
+    private List<UsersFileDTO> profileDTOs;
 
 }

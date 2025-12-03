@@ -79,7 +79,25 @@ public class NoticeService implements BoardService {
 	@Override
 	public int delete(BoardDTO boardDTO)throws Exception{
 		NoticeDTO noticeDTO = (NoticeDTO)boardDTO;
+        
+        BoardFileDTO boardFileDTO = new BoardFileDTO();
+        boardFileDTO.setBoardNum(noticeDTO.getBoardNum());
+        
+        List<BoardFileDTO> fileList = noticeDAO.getFileList(boardFileDTO);
+        
+        if (fileList != null) {
+            File file = new File(uploadPath); // 기본 저장 경로 (예: D:/GDJ94/upload/notice/)
+            for(BoardFileDTO fileDTO : fileList) {
+                fileManager.fileDelete(file, fileDTO.getFileName()); 
+            }
+        }
+        
+        // 3. DB 게시글 삭제 (ON DELETE CASCADE로 파일 테이블 레코드도 자동 삭제)
 		return noticeDAO.delete(noticeDTO);
+	}
+	@Override
+	public BoardFileDTO fileDetail(BoardFileDTO boardFileDTO) throws Exception {
+		return noticeDAO.fileDetail(boardFileDTO);
 	}
 	
 }

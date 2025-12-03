@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.winter.app.board.BoardDTO;
+import com.winter.app.files.BoardFileDTO;
 import com.winter.app.util.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -122,6 +123,12 @@ public class NoticeController {
         
         return mv;
     }
+	@GetMapping("fileDown")
+	public String fileDown(BoardFileDTO boardFileDTO, Model model)throws Exception {
+		boardFileDTO = noticeService.fileDetail(boardFileDTO);
+		model.addAttribute("file", boardFileDTO);
+		return "fileDownView";
+	}
 	
 	
 

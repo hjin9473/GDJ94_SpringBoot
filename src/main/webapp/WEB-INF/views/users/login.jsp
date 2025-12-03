@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>로그인</title>
 <c:import url="/WEB-INF/views/template/head.jsp"></c:import>
 </head>
 <body id="page-top">
@@ -18,13 +18,11 @@
 				<div class="container-fluid">
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">회원가입</h1>
+						<h1 class="h3 mb-0 text-gray-800">로그인</h1>
 					</div>
 					<div class="container-fluid">
 						
-		        <form action="./register" method="post" enctype="multipart/form-data">
-		            
-							<div class="mb-3">
+		        <form action="./login" method="post"> <div class="mb-3">
 								<label for="username" class="form-label">아이디</label> 
 								<input type="text" class="form-control" id="username" name="username" required>
 							</div>
@@ -32,31 +30,10 @@
 								<label for="password" class="form-label">비밀번호</label> 
 								<input type="password" class="form-control" id="password"	name="password" required>
 							</div>
-							<div class="mb-3">
-								<label for="name" class="form-label">이름</label>
-								<input type="text" class="form-control" id="name" name="name" required>
-							</div>
-							<div class="mb-3">
-								<label for="email" class="form-label">이메일</label>
-								<input type="email" class="form-control" id="email" name="email" required>
-							</div>
-							<div class="mb-3">
-								<label for="phone" class="form-label">전화번호</label>
-								<input type="text" class="form-control" id="phone" name="phone">
-							</div>
-							<div class="mb-3">
-								<label for="birth" class="form-label">생일</label>
-								<input type="date" class="form-control" id="birth" name="birth">
-							</div>
-                            
-                            <div class="mb-3">
-								<label for="attach" class="form-label">프로필 사진</label>
-								<input type="file" class="form-control" id="attach" name="attach">
-							</div>
 							
 							<div class="d-grid gap-2">
-								<button type="submit" class="btn btn-primary">회원가입</button>
-								<a href="./list" class="btn btn-secondary">취소</a>
+								<button type="submit" class="btn btn-primary">로그인</button>
+								<a href="/" class="btn btn-secondary">취소</a>
 							</div>
 						</form>
 						

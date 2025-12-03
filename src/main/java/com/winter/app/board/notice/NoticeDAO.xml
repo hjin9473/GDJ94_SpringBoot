@@ -81,5 +81,16 @@
     		VALUES (#{fileName}, #{fileOrigin}, #{boardNum});
     	</insert>
     	
+    	<select id="getFileList" resultType="BoardFileDTO" parameterType="BoardFileDTO">
+        SELECT *
+        FROM notice_files
+        WHERE board_num = #{boardNum}
+    </select>
+    	<!-- fileDetail -->
+    	<select id="fileDetail" parameterType="BoardFileDTO" resultType="BoardFileDTO">
+    		SELECT * FROM notice_files WHERE file_num=#{fileNum}
+    	</select>
+    	
+    	
     	
     </mapper>

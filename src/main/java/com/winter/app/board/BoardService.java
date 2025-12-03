@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.notice.NoticeDAO;
 import com.winter.app.board.notice.NoticeDTO;
+import com.winter.app.files.BoardFileDTO;
 import com.winter.app.util.Pager;
 
 public interface BoardService {
@@ -22,4 +23,7 @@ public interface BoardService {
 	public int update(BoardDTO boardDTO)throws Exception;
 	
 	public int delete(BoardDTO boardDTO)throws Exception;
+	
+	public BoardFileDTO fileDetail(BoardFileDTO boardFileDTO) throws Exception;
+	
 }

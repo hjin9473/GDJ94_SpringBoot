@@ -112,6 +112,10 @@
     		VALUES (#{fileName}, #{fileOrigin}, #{boardNum});
     	</insert>
     	
+    	<!-- fileDetail -->
+    	<select id="fileDetail" parameterType="BoardFileDTO" resultType="BoardFileDTO">
+    		SELECT * FROM qna_files WHERE file_num=#{fileNum}
+    	</select>
 
     
     </mapper>

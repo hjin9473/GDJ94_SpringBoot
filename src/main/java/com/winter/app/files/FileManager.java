@@ -28,5 +28,15 @@ public class FileManager {
 		
 		
 	}
+	public boolean fileDelete(File file, String fileName) throws Exception {
+	        
+	        File deleteFile = new File(file, fileName); 
+	        
+	        if (deleteFile.exists() && deleteFile.delete()) {
+	            return true;
+	        }
+	        
+	        return false;
+	    }
 
 }
