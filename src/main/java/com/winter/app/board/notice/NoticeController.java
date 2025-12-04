@@ -52,12 +52,16 @@ public class NoticeController {
 	
 	@GetMapping("add")
 	public String add(@ModelAttribute("dto") NoticeDTO noticeDTO) throws Exception {
+		if (noticeDTO.getBoardWriter() == null || noticeDTO.getBoardWriter().isEmpty()) {
+	        noticeDTO.setBoardWriter("test_user"); 
+	    }
 		return "board/add";
 	}
 	
 	@PostMapping("add")
 	public String add(@ModelAttribute("dto") @Valid NoticeDTO noticeDTO, BindingResult bindingResult, MultipartFile [] attach, RedirectAttributes redirectAttributes) throws Exception {
 	    
+		log.info("Validation Errors: {}", bindingResult.getAllErrors());
 	    if (bindingResult.hasErrors()) {
 	        return "board/add";
 	    }

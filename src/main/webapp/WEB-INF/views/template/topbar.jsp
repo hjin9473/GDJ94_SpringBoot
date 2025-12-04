@@ -46,40 +46,7 @@
                     </div>
                 </li>
                 
-                <ul class="navbar-nav ml-auto">
-                <c:choose>
-                    <c:when test="${empty sessionScope.usersDTO}">
-                        <li class="nav-item mx-1">
-                            <a href="/users/login" class="nav-link d-flex align-items-center text-primary">
-                                <i class="fas fa-sign-in-alt fa-sm fa-fw mr-1"></i> 로그인
-                            </a>
-                        </li>
-                        <li class="nav-item mx-1">
-                            <a href="/users/register" class="nav-link d-flex align-items-center text-primary">
-                                <i class="fas fa-user-plus fa-sm fa-fw mr-1"></i> 회원가입
-                            </a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="nav-item mx-1 d-flex align-items-center">
-                            <span class="nav-link text-gray-800 font-weight-bold">
-                                ${sessionScope.usersDTO.name}님
-                            </span>
-                        </li>
-                        <li class="nav-item mx-1">
-                            <a href="/users/mypage" class="nav-link d-flex align-items-center text-primary">
-                                <i class="fas fa-user fa-sm fa-fw mr-1"></i> 마이페이지
-                            </a>
-                        </li>
-                        <li class="nav-item mx-1">
-                            <a href="/users/logout" class="nav-link d-flex align-items-center text-danger">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-1"></i> 로그아웃
-                            </a>
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-                </ul>
-
+                
 
 		<li class="nav-item dropdown no-arrow mx-1"><a
 			class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
@@ -233,14 +200,23 @@
 				class="nav-link dropdown-toggle" href="#" id="userDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false"> <span
-					class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas
-						McGee</span> <img class="img-profile rounded-circle"
-					src="/img/undraw_profile.svg">
+					class="mr-2 d-none d-lg-inline text-gray-600 small">${usersDTO.username} 님</span> 
+						<c:choose>
+										<c:when	test="${not empty usersDTO.profileDTOs and not empty usersDTO.profileDTOs[0].fileName}">
+											<img src="/files/profile/${usersDTO.profileDTOs[0].fileName}"
+												alt="Profile Image" class="img-profile rounded-circle">
+										</c:when>
+										<c:otherwise>
+											<img src="/img/undraw_profile.svg"	alt="Default Profile Image"
+												class="img-profile rounded-circle">
+										</c:otherwise>
+									</c:choose>
+						
 			</a>
 				<div
 					class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#"> <i
+					<a class="dropdown-item" href="/users/mypage"> <i
 						class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
 					</a> <a class="dropdown-item" href="#"> <i
 						class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
@@ -249,9 +225,8 @@
 						Log
 					</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#" data-toggle="modal"
-						data-target="#logoutModal"> <i
-						class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+					<a class="dropdown-item" href="/users/logout" > 
+					<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 						Logout
 					</a>
 				</div></li>

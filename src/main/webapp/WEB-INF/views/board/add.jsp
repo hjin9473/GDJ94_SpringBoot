@@ -81,14 +81,20 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
 
-	<script>
-		$(document).ready(function() {
-			$('#boardContents').summernote({
-				height : 300,
-				focus : true
-			});
-		});
-	</script>
-	<script src="/js/board/board.js"></script>
+<script>
+	$(document).ready(function() {
+        // Summernote 초기화 코드를 try-catch로 감싸서, 실패하더라도
+        // 이후의 board.js 파일 로드나 다른 이벤트 등록을 막지 않도록 합니다.
+        try {
+            $('#boardContents').summernote({
+                height : 300,
+                focus : true
+            });
+        } catch (e) {
+            console.error("Summernote Initialization Error:", e);
+        }
+	});
+</script>
+<script src="/js/board/board.js"></script>
 </body>
 </html>

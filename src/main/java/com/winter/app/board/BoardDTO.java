@@ -17,8 +17,9 @@ import lombok.ToString;
 public class BoardDTO {
 	
 	private Long boardNum;   
-	@NotBlank(message="{NotBlank}")
-	private String boardTitle;    
+	@NotBlank(message="dd")
+	private String boardTitle;   
+	@NotBlank(message="작성자는 필수입니다")
 	private String boardWriter;   
 	private String boardContents;  
 	private LocalDate boardDate;     

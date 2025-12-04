@@ -23,35 +23,34 @@
 					</div>
 					<div class="container-fluid">
 
-						<form:form modelAttribute="usersDTO" action="./register"
-							method="post" novalidate="novalidate"
-							enctype="multipart/form-data">
+						<form:form modelAttribute="usersDTO" method="post" enctype="multipart/form-data">
 
 							<div class="mb-3">
 								<label for="username" class="form-label">아이디</label>
-								<form:input path="username" cssClass="form-control"
-									id="username" required="required" />
+												<form:input path="username" cssClass="form-control" id="username"  />
 								<form:errors path="username" cssClass="text-danger"></form:errors>
 							</div>
 
 							<div class="mb-3">
 								<label for="password" class="form-label">비밀번호</label>
-								<form:password path="password" cssClass="form-control"
-									id="password" required="required" />
+								<form:password path="password" cssClass="form-control" id="password"  />
 								<form:errors path="password" cssClass="text-danger"></form:errors>
+							</div>
+							<div class="mb-3">
+								<label for=passwordCheck class="form-label">비밀번호 확인</label>
+								<form:password path="passwordCheck" cssClass="form-control"  />
+								<form:errors path="passwordCheck" cssClass="text-danger"></form:errors>
 							</div>
 
 							<div class="mb-3">
 								<label for="name" class="form-label">이름</label>
-								<form:input path="name" cssClass="form-control" id="name"
-									required="required" />
+								<form:input path="name" cssClass="form-control" id="name"	/>
 								<form:errors path="name" cssClass="text-danger"></form:errors>
 							</div>
 
 							<div class="mb-3">
 								<label for="email" class="form-label">이메일</label>
-								<form:input path="email" cssClass="form-control" id="email"
-									required="required" />
+								<form:input path="email" cssClass="form-control" id="email" />
 								<form:errors path="email" cssClass="text-danger"></form:errors>
 							</div>
 
@@ -62,8 +61,7 @@
 
 							<div class="mb-3">
 								<label for="birth" class="form-label">생일</label>
-								<form:input path="birth" cssClass="form-control" id="birth"
-									type="date" />
+								<form:input path="birth" cssClass="form-control" id="birth"	type="date" />
 							</div>
 
 							<div class="mb-3">
@@ -73,7 +71,7 @@
 
 							<div class="d-grid gap-2">
 								<button type="submit" class="btn btn-primary">회원가입</button>
-								<a href="./list" class="btn btn-secondary">취소</a>
+								<a href="/" class="btn btn-secondary">취소</a>
 							</div>
 						</form:form>
 
