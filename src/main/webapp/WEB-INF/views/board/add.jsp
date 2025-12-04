@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항 추가</title>
 <c:import url="/WEB-INF/views/template/head.jsp"></c:import>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+	rel="stylesheet">
 </head>
 <body id="page-top">
 	<div id="wrapper">
@@ -25,38 +28,42 @@
 							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 					</div>
 					<div class="container-fluid">
-		        <form method="post" enctype="multipart/form-data">
-		            <input type="hidden" name="boardNum" value="${dto.boardNum}">
+
+						<!-------------------------- Form --------------------------------------->
+						<form:form modelAttribute="dto" method="post" novalidate="novalidate"
+							enctype="multipart/form-data">
+							<form:hidden path="boardNum" />
 							<div class="mb-3">
-								<label for="boardWriter" class="form-label">작성자</label> 
-								<input type="text" class="form-control" id="boardWriter" name="boardWriter" required>
+								<label for="boardWriter" class="form-label">작성자</label>
+								<form:input path="boardWriter" cssClass="form-control"
+									id="boardWriter" />
 							</div>
 							<div class="mb-3">
-								<label for="boardTitle" class="form-label">제목</label> 
-								<input type="text" class="form-control" id="boardTitle"	name="boardTitle" required>
+								<label for="boardTitle" class="form-label">제목</label>
+								<form:input path="boardTitle" cssClass="form-control"
+									id="boardTitle" />
+								<form:errors path="boardTitle" cssClass="text-danger"></form:errors>
 							</div>
 							<div class="mb-3">
 								<label for="boardContents" class="form-label">내용</label>
-								<textarea class="form-control" id="boardContents"
-									name="boardContents" rows="10" required></textarea>
+								<form:textarea path="boardContents" cssClass="form-control"
+									id="boardContents" rows="10" />
+								<form:errors path="boardContents" cssClass="text-danger"></form:errors>
 							</div>
-							
+
 							<div class="form-group">
-								<button type="button" id="fileAdd" class="btn btn-primary">파일추가</button>	
+								<button type="button" id="fileAdd" class="btn btn-primary">파일추가</button>
 							</div>
-							<div id="files" class="form-group">
-								
-							</div>
-							
-							
+							<div id="files" class="form-group"></div>
+
 							<div class="d-grid gap-2">
 								<button type="submit" class="btn btn-primary">등록</button>
 								<a href="./list" class="btn btn-secondary">취소</a>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
-				</div>
+			</div>
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
@@ -64,22 +71,24 @@
 					</div>
 				</div>
 			</footer>
-			</div>
+		</div>
 	</div>
 
-<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
+	<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
 
-    <script>
-    	$(document).ready(function() {
-    	  $('#boardContents').summernote({
-    	  	height: 300,
-            focus: true
-    	  });
-    	});
-    </script>
-    <script src="/js/board/board.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#boardContents').summernote({
+				height : 300,
+				focus : true
+			});
+		});
+	</script>
+	<script src="/js/board/board.js"></script>
 </body>
 </html>

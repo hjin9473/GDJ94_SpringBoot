@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,8 +53,9 @@
                             
 							<div class="mb-3">
 								<label for="birth" class="form-label">생일</label>
-								<input type="date" class="form-control" id="birth" name="birth" value="${dto.birth}"> 
-							</div>
+								<input type="date" class="form-control" id="birth" name="birth" 
+       					value="<fmt:formatDate value='${dto.birth}' pattern='yyyy-MM-dd'/>"> 
+       				</div>
                             
                             <div class="mb-3">
 								<label for="attach" class="form-label">프로필 사진 변경</label>

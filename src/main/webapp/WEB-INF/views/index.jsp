@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>    
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +39,8 @@
                     <!-- 생성한 contents 작성 -->
                     
                     </div>
-                
+                <spring:message code="hi"></spring:message>
+                <spring:message code="message.welcome" arguments="${usersDTO.username},${usersDTO.birth}" argumentSeparator=","></spring:message>
                 </div>
                 <!-- /.container-fluid -->
             </div> 

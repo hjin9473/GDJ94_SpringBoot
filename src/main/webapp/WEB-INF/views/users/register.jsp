@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,48 +22,64 @@
 						<h1 class="h3 mb-0 text-gray-800">회원가입</h1>
 					</div>
 					<div class="container-fluid">
-						
-		        <form action="./register" method="post" enctype="multipart/form-data">
-		            
+
+						<form:form modelAttribute="usersDTO" action="./register"
+							method="post" novalidate="novalidate"
+							enctype="multipart/form-data">
+
 							<div class="mb-3">
-								<label for="username" class="form-label">아이디</label> 
-								<input type="text" class="form-control" id="username" name="username" required>
+								<label for="username" class="form-label">아이디</label>
+								<form:input path="username" cssClass="form-control"
+									id="username" required="required" />
+								<form:errors path="username" cssClass="text-danger"></form:errors>
 							</div>
+
 							<div class="mb-3">
-								<label for="password" class="form-label">비밀번호</label> 
-								<input type="password" class="form-control" id="password"	name="password" required>
+								<label for="password" class="form-label">비밀번호</label>
+								<form:password path="password" cssClass="form-control"
+									id="password" required="required" />
+								<form:errors path="password" cssClass="text-danger"></form:errors>
 							</div>
+
 							<div class="mb-3">
 								<label for="name" class="form-label">이름</label>
-								<input type="text" class="form-control" id="name" name="name" required>
+								<form:input path="name" cssClass="form-control" id="name"
+									required="required" />
+								<form:errors path="name" cssClass="text-danger"></form:errors>
 							</div>
+
 							<div class="mb-3">
 								<label for="email" class="form-label">이메일</label>
-								<input type="email" class="form-control" id="email" name="email" required>
+								<form:input path="email" cssClass="form-control" id="email"
+									required="required" />
+								<form:errors path="email" cssClass="text-danger"></form:errors>
 							</div>
+
 							<div class="mb-3">
 								<label for="phone" class="form-label">전화번호</label>
-								<input type="text" class="form-control" id="phone" name="phone">
+								<form:input path="phone" cssClass="form-control" id="phone" />
 							</div>
+
 							<div class="mb-3">
 								<label for="birth" class="form-label">생일</label>
-								<input type="date" class="form-control" id="birth" name="birth">
+								<form:input path="birth" cssClass="form-control" id="birth"
+									type="date" />
 							</div>
-                            
-                            <div class="mb-3">
-								<label for="attach" class="form-label">프로필 사진</label>
-								<input type="file" class="form-control" id="attach" name="attach">
+
+							<div class="mb-3">
+								<label for="attach" class="form-label">프로필 사진</label> <input
+									type="file" class="form-control" id="attach" name="attach">
 							</div>
-							
+
 							<div class="d-grid gap-2">
 								<button type="submit" class="btn btn-primary">회원가입</button>
 								<a href="./list" class="btn btn-secondary">취소</a>
 							</div>
-						</form>
-						
+						</form:form>
+
 					</div>
 				</div>
-				</div>
+			</div>
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
@@ -70,9 +87,9 @@
 					</div>
 				</div>
 			</footer>
-			</div>
+		</div>
 	</div>
 
-<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
+	<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
 </body>
 </html>

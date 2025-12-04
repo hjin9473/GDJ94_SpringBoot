@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.winter.app.files.BoardFileDTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +16,8 @@ import lombok.ToString;
 @ToString
 public class BoardDTO {
 	
-	private Long boardNum;       
+	private Long boardNum;   
+	@NotBlank(message="{NotBlank}")
 	private String boardTitle;    
 	private String boardWriter;   
 	private String boardContents;  

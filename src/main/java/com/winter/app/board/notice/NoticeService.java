@@ -54,7 +54,8 @@ public class NoticeService implements BoardService {
 		//1. 파일을 HDD에 저장
 		//	1) 어디에 저장?
 		//	2) 어떤 이름으로 저장?
-		File file = new File(uploadPath);
+		if (attach != null) { 
+			File file = new File(uploadPath);
 		for(MultipartFile f: attach) {
 			
 			if (f== null || f.isEmpty()) {
@@ -69,6 +70,7 @@ public class NoticeService implements BoardService {
 			boardFileDTO.setFileOrigin(f.getOriginalFilename());
 			boardFileDTO.setBoardNum(boardDTO.getBoardNum());
 			noticeDAO.fileAdd(boardFileDTO);
+		}
 		}
 		
 		return result;//noticeDAO.add(boardDTO);

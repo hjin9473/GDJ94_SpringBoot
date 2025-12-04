@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,7 @@
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 			<!-- Main Content -->
+			
 			<div id="content">
 				<c:import url="/WEB-INF/views/template/topbar.jsp"></c:import>
 				<!-- Begin Page Content -->

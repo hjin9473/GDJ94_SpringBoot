@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import com.winter.app.board.notice.NoticeDTO;
 import com.winter.app.files.BoardFileDTO;
 import com.winter.app.util.Pager;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -50,12 +52,16 @@ public class QnaController {
 	}
 	
 	@GetMapping("add")
-	public String add() throws Exception {
+	public String add(@ModelAttribute("dto") QnaDTO qnaDTO) throws Exception {
 		return "board/add";
 	}
 	@PostMapping("add")
-	public ModelAndView add(QnaDTO qnaDTO, MultipartFile [] attach, RedirectAttributes redirectAttributes) throws Exception {
-	    ModelAndView mv = new ModelAndView();
+	public String add(@ModelAttribute("dto") @Valid QnaDTO qnaDTO, BindingResult bindingResult, MultipartFile [] attach, RedirectAttributes redirectAttributes) throws Exception {
+	    
+	    if (bindingResult.hasErrors()) {
+	        return "board/add"; // 실패 시 폼으로 돌아감
+	    }
+	    
 	    int result = qnaService.add(qnaDTO, attach);
 	    
 	    if(result > 0) {
@@ -63,9 +69,8 @@ public class QnaController {
 	    } else {
 	        redirectAttributes.addFlashAttribute("result", "질문 등록 실패");
 	    }
-	    mv.setViewName("redirect:./list"); 
 	    
-	    return mv;
+	    return "redirect:./list"; 
 	}
 	
 	@GetMapping("reply")
