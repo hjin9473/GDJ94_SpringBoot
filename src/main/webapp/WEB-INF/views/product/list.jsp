@@ -1,143 +1,138 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>상품 목록</title>
-<c:import url="/WEB-INF/views/template/head.jsp"></c:import>
+  <meta charset="UTF-8">
+  <title>Product</title>
+<c:import url="/WEB-INF/views/template/head.jsp"/>
+
+<style>
+    .product-card {
+        text-decoration: none;
+        color: inherit;
+    }
+    .product-card .card {
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+    .product-card .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+
+
 </head>
 <body id="page-top">
+
 	<div id="wrapper">
-		<c:import url="/WEB-INF/views/template/sidebar.jsp"></c:import>
-		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
-				<c:import url="/WEB-INF/views/template/topbar.jsp"></c:import>
-				<div class="container-fluid">
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4 ">
-						
-						<h1 class="h3 mb-0 text-gray-800">${category}</h1>
-				<div class="row justify-content-center mb-3">
-					<form class="form-inline method-get" action="./list">
-						<select name="kind" class="form-control mr-2">
-						    <option value="k1" ${param.kind eq 'k1' ?
-'selected="selected"' : ''}>제목 (productTitle)</option>
-						    <option value="k2" ${param.kind eq 'k2' ?
-'selected="selected"' : ''}>상품 이름 (productName)</option>
-						    <option value="k3" ${param.kind eq 'k3' ?
-'selected="selected"' : ''}>카테고리 (productCategory)</option>
-						</select> 
-						<input placeholder="검색어를 입력하세요" type="text" name="search"
-							class="form-control mr-2" value="${param.search}">
-						<button class="btn btn-primary" type="submit">검색</button>
-					</form>
-				</div>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-					</div>
-					<c:if test="${not empty result}">
-						<div class="alert alert-info alert-dismissible fade show"
-							role="alert">
-							<strong>알림:</strong> ${result}
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-					</c:if>
-
-					<div class="row justify-content-center">
-						<table class="table col-sm-10 mt-5">
-							<thead class="thead-dark">
-								<tr>
-									<th>번호 (Num)</th>
-									<th>제목 (Title)</th>
-									<th>상품 이름 (Name)</th>
-									<th>카테고리 (Category)</th>
-									<th>금리 (Rate)</th>
-									<th>판매 (Sale)</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${list}" var="dto">
-									<tr>
-										<td>${dto.productNum}</td>
-										<td>
-										
-											<a href="./detail?productNum=${dto.productNum}">${dto.productTitle}</a>
-										
-											
-										</td>
-										<td>${dto.productName}</td>
-										<td>${dto.productCategory}</td>
-										<td>${dto.productRate}%</td>
-										<td>
-											<c:choose>
-												<c:when test="${dto.productSale == true}">판매 중</c:when>
-												<c:otherwise>판매 중지</c:otherwise>
-											</c:choose>
-										</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-					<div class="row justify-content-between col-sm-5 offset-sm-5">
-				    <nav aria-label="Page navigation example">
-				        <ul class="pagination ">
-				            
-				            <li class="page-item">
-				    
-            <a class="page-link"
-				                   href="./list?page=${pager.begin-1}&kind=${param.kind}&search=${param.search}" 
-				                   aria-label="Previous">
-				                    <span aria-hidden="true">&laquo;</span>
-				                </a>
-				           
- </li>
-            
-					            <c:forEach begin="${pager.begin}" end="${pager.end}" var="i">
-					                <li class="page-item ${i == pager.page ?
-'active' : ''}">
-					                    <a class="page-link"
-					                       href="./list?page=${i}&kind=${param.kind}&search=${param.search}">
-					                        ${i}
-					                    </a>
-					          
-      </li>
-					            </c:forEach>
-					            
-					            <li class="page-item">
-					                <a class="page-link"
-					                   href="./list?page=${pager.end+1}&kind=${param.kind}&search=${param.search}" 
-					                   aria-label="Next"> 
-
-					                       <span aria-hidden="true">&raquo;</span>
-					                </a>
-					            </li>
-					        </ul>
-					    </nav>
+		<!-- side bar -->
+		<c:import url="/WEB-INF/views/template/sidebar.jsp"/>
+		<!-- side bar -->
+		
+		<!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+       			
+       			<!-- topbar -->
+       			<c:import url="/WEB-INF/views/template/topbar.jsp"/>
+            	<!-- topbar -->
+            	
+            	<!-- Begin Page Content -->
+                <div class="container-fluid">
+                	<!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+					    <h1 class="h3 mb-0 text-gray-800">Product</h1>
+					
 					    <div>
-								<a href="./add"  class="btn btn-primary">상품 등록</a>
-						</div>
-    		</div>
-				</div>
-				</div>
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy;
-Your Website 2021</span>
+					        <a href="add" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+					            <i class="fas fa-plus fa-sm text-white-50"></i> Add Product
+					        </a>
+					
+					        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+					            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+					        </a>
+					    </div>
 					</div>
-				</div>
-			</footer>
-			</div>
 
+                    
+                    <!-- Content Row -->
+                    <div class="row">
+                    
+					    <c:forEach items="${dto}" var="p">
+					
+					        <div class="col-xl-3 col-md-6 mb-4">
+					
+					            <!-- 전체 카드 클릭 -->
+					            <a href="./detail?productNum=${p.productNum}" class="product-card">
+					
+					                <div class="card border-left-primary shadow h-100 py-3 px-3">
+					
+					                    <!-- Category -->
+					                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+					                        ${p.productCategory}
+					                    </div>
+					
+					                    <!-- Name -->
+					                    <div class="h5 mb-2 font-weight-bold text-gray-800">
+					                        ${p.productName}
+					                    </div>
+					
+						                <!-- Product Rate -->
+										<div class="text-primary mb-3" style="font-weight: 600;">
+										    연 ${p.productRate}% 
+										</div>
+						
+					                    <!-- Sale Status -->
+					                    <c:if test="${p.productSale == false}">
+					                        <span class="badge badge-success">판매중</span>
+					                    </c:if>
+					                    <c:if test="${p.productSale == true}">
+					                        <span class="badge badge-secondary">판매중지</span>
+					                    </c:if>
+					
+					                </div>
+					
+					            </a>
+					
+					        </div>
+					
+					    </c:forEach>
+
+                    
+                    </div>
+                
+                </div>
+                <!-- /.container-fluid -->
+            </div> 
+            <!-- End of Main Content -->
+            
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+	
 	</div>
+	
 
-	<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
+	<c:import url="/WEB-INF/views/template/foot.jsp"/>
+	
+	
+	
+	
+	
+	
 </body>
 </html>
