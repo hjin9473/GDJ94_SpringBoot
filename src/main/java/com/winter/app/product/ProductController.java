@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -103,7 +104,7 @@ public class ProductController {
 	
 	@PostMapping("commentAdd")
 	@ResponseBody // AJAX 통신을 위해 JSON 형태로 결과값 반환
-	public int commentAdd(ProductCommentDTO productCommentDTO) throws Exception { 
+	public int commentAdd(@RequestBody ProductCommentDTO productCommentDTO) throws Exception { 
 	    // ProductCommentDTO를 사용하여 댓글 서비스를 호출
 	    return productService.commentAdd(productCommentDTO); 
 	}

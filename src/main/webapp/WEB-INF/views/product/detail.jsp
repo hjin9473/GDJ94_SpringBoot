@@ -69,47 +69,65 @@
 					
 					        <!-- 상세 설명 -->
 					        <h6 class="font-weight-bold text-gray-700 mb-2">상품 설명</h6>
-					        <p class="text-gray-900" style="line-height: 1.7;">
-					            ${dto.productContents}
-					        </p>
-					
-					        <hr>
-					        
-					        <div >
-					        	<table>
-					        		<tbody id="list" data-product-num="${dto.productNum}">
-					        			
-					        		</tbody>
-					        	</table>
-					        </div>
-					
-					        <!-- 버튼 영역 -->
-					        <div class="d-flex justify-content-between mt-3">
-					
-					            <a href="./list" class="btn btn-secondary">
-					                ← 목록으로
-					            </a>
-					
-					            <div>
-					                <a href="./update?productNum=${dto.productNum}" 
-					                   class="btn btn-warning text-dark mr-2">
-					                    수정하기
-					                </a>
-									<form action="./delete" method="post" class="d-inline"
-									      onsubmit="return confirm('정말 삭제하시겠습니까?');">
-									
-									    <input type="hidden" name="productNum" value="${dto.productNum}">
-									
-									    <button type="submit" class="btn btn-danger">
-									        삭제
-									    </button>
-									</form>
-					            </div>
-					
-					        </div>
-					
-					    </div>
-					</div>
+        <p class="text-gray-900" style="line-height: 1.7;">
+            ${dto.productContents}
+        </p>
+
+        <hr>
+        
+        <h6 class="font-weight-bold text-gray-700 mb-3">댓글 목록</h6>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">작성자</th>
+                        <th>내용</th>
+                        <th style="width: 20%;">작성일</th>
+                    </tr>
+                </thead>
+                <tbody id="list" data-product-num="${dto.productNum}">
+                    </tbody>
+            </table>
+        </div>
+        
+        <div class="card shadow p-4 mb-4 mt-4">
+            <h6 class="font-weight-bold text-gray-700 mb-2">댓글 달기</h6>
+            
+            <textarea id="boardContents" class="form-control mb-2" rows="2" placeholder="댓글을 입력하세요..." required></textarea>
+            
+            <input type="hidden" id="commentUsername" value="TestUser"> 
+
+            <div class="d-flex justify-content-end">
+                <button id="commentAddBtn" class="btn btn-primary btn-sm">등록</button>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-3">
+
+            <a href="./list" class="btn btn-secondary">
+                ← 목록으로
+            </a>
+
+            <div>
+                <a href="./update?productNum=${dto.productNum}" 
+                    class="btn btn-warning text-dark mr-2">
+                    수정하기
+                </a>
+                <form action="./delete" method="post" class="d-inline"
+                        onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                    
+                    <input type="hidden" name="productNum" value="${dto.productNum}">
+                    
+                    <button type="submit" class="btn btn-danger">
+                        삭제
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
                     
                     </div>
                 

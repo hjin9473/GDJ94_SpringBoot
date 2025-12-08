@@ -62,6 +62,7 @@ public class NoticeController {
 	public String add(@ModelAttribute("dto") @Valid NoticeDTO noticeDTO, BindingResult bindingResult, MultipartFile [] attach, RedirectAttributes redirectAttributes) throws Exception {
 	    
 		log.info("Validation Errors: {}", bindingResult.getAllErrors());
+		
 	    if (bindingResult.hasErrors()) {
 	        return "board/add";
 	    }
