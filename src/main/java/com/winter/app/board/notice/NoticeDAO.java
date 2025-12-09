@@ -5,14 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.winter.app.board.BoardDAO;
-import com.winter.app.files.BoardFileDTO;
+import com.winter.app.util.Pager;
 
 @Mapper
-public interface NoticeDAO extends BoardDAO{
+public interface NoticeDAO extends BoardDAO {
 	
-	public List<BoardFileDTO> getFileList(BoardFileDTO boardFileDTO) throws Exception;
 
-	
-	
-	
+
 }

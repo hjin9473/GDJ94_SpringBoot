@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.winter.app.board.BoardDTO;
-import com.winter.app.files.BoardFileDTO;
+import com.winter.app.board.BoardFileDTO;
 import com.winter.app.util.Pager;
 
 import jakarta.validation.Valid;
@@ -41,6 +39,7 @@ public class NoticeController {
 	
 	@GetMapping("list")
 	public String list(Pager pager, Model model)throws Exception{
+		
 
 		List<BoardDTO> list= noticeService.list(pager);
 	
@@ -50,94 +49,71 @@ public class NoticeController {
 		return "board/list";
 	}
 	
+	@GetMapping("detail")
+	public String detail(BoardDTO boardDTO, Model model)throws Exception{
+		boardDTO = noticeService.detail(boardDTO);
+		
+		//null(조회실패시 처리)
+		
+		model.addAttribute("dto", boardDTO);
+		
+		return "board/detail";
+		
+	}
+	
 	@GetMapping("add")
-	public String add(@ModelAttribute("dto") NoticeDTO noticeDTO) throws Exception {
-		if (noticeDTO.getBoardWriter() == null || noticeDTO.getBoardWriter().isEmpty()) {
-	        noticeDTO.setBoardWriter("test_user"); 
-	    }
+	public String add(@ModelAttribute("dto") NoticeDTO noticeDTO)throws Exception{
 		return "board/add";
 	}
 	
 	@PostMapping("add")
-	public String add(@ModelAttribute("dto") @Valid NoticeDTO noticeDTO, BindingResult bindingResult, MultipartFile [] attach, RedirectAttributes redirectAttributes) throws Exception {
-	    
-		log.info("Validation Errors: {}", bindingResult.getAllErrors());
+	public String add(@ModelAttribute("dto") @Valid NoticeDTO noticeDTO,BindingResult bindingResult ,MultipartFile [] attach)throws Exception{
 		
-	    if (bindingResult.hasErrors()) {
-	        return "board/add";
-	    }
-	    int result = noticeService.add(noticeDTO, attach);
-	    
-	    if(result > 0) {
-	        redirectAttributes.addFlashAttribute("result", "공지사항 등록 성공"); 
-	    } else {
-	        redirectAttributes.addFlashAttribute("result", "공지사항 등록 실패");
-	    }
-	    
-	    return "redirect:./list"; 
-	}
-	@GetMapping("detail")
-		public ModelAndView detail(BoardDTO boardDTO) throws Exception {
-			ModelAndView mv = new ModelAndView();
+		if(bindingResult.hasErrors()) {
 			
-			boardDTO = noticeService.detail(boardDTO);
-			
-			mv.addObject("dto", boardDTO);
-			mv.setViewName("board/detail");
-			
-			return mv;	
+			return "board/add";
+		}
+		
+		//int result = noticeService.add(noticeDTO, attach);
+		
+		return "redirect:./list";
+		
 	}
 	
-	@GetMapping("update") 
-    public ModelAndView update(BoardDTO boardDTO) throws Exception {
-        ModelAndView mv = new ModelAndView();
-        
-        boardDTO = noticeService.detail(boardDTO); 
-        
-        mv.addObject("dto", boardDTO);
-        mv.setViewName("board/update"); 
-        
-        return mv;
-    }
+	@GetMapping("update")
+	public String update(NoticeDTO noticeDTO, Model model)throws Exception{
+		noticeDTO = (NoticeDTO)noticeService.detail(noticeDTO);
+		model.addAttribute("dto", noticeDTO);
+		model.addAttribute("sub", "Update");
+		return "board/add";
+	}
+	
 	@PostMapping("update")
-    public ModelAndView update(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) throws Exception {
-        ModelAndView mv = new ModelAndView();
-        
-        int result = noticeService.update(noticeDTO); 
-        
-        if (result > 0) {
-            redirectAttributes.addFlashAttribute("result", "게시물이 성공적으로 수정되었습니다.");
-        } else {
-            redirectAttributes.addFlashAttribute("result", "게시물 수정에 실패했습니다.");
-        }
-        
-        mv.setViewName("redirect:./detail?boardNum=" + noticeDTO.getBoardNum());
-        
-        return mv;
-    }
+	public String update(NoticeDTO noticeDTO)throws Exception{
+		int result= noticeService.update(noticeDTO);
+		
+		return "redirect:./detail?boardNum="+noticeDTO.getBoardNum();
+		
+	}
 	
 	@PostMapping("delete")
-    public ModelAndView delete(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) throws Exception {
-        ModelAndView mv = new ModelAndView();
-        
-        int result = noticeService.delete(noticeDTO); 
-        
-        if (result > 0) {
-            redirectAttributes.addFlashAttribute("result", "게시물이 성공적으로 삭제되었습니다.");
-        } else {
-            redirectAttributes.addFlashAttribute("result", "게시물 삭제에 실패했습니다.");
-        }
-        
-        mv.setViewName("redirect:./list");
-        
-        return mv;
-    }
+	public String delete(NoticeDTO noticeDTO)throws Exception{
+		int result = noticeService.delete(noticeDTO);
+		
+		return "redirect:./list";
+	}
+	
 	@GetMapping("fileDown")
-	public String fileDown(BoardFileDTO boardFileDTO, Model model)throws Exception {
+	public String fileDown(BoardFileDTO boardFileDTO, Model model)throws Exception{
 		boardFileDTO = noticeService.fileDetail(boardFileDTO);
 		model.addAttribute("file", boardFileDTO);
 		return "fileDownView";
 	}
+	
+	
+	
+	
+	
 	
 	
 

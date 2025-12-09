@@ -15,23 +15,26 @@ public class FileMappingConfig implements WebMvcConfigurer {
 	private String uploadPath; //file:///upload/
 	
 	@Value("${app.upload.url}")
-	private String urlPath; //file/**
-	
+	private String urlPath; // /files/**
+
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		// TODO Auto-generated method stub
 		
 		registry
 		.addResourceHandler(urlPath)
 		.addResourceLocations(uploadPath);
+		
 	}
 	
 	
 	
 	
+	
 //	@Bean("")
-//	public FileManager getFileManager() {
+//	FileManager getFileManger() {
 //		return new FileManager();
-//		
 //	}
 	
-	
+
 }

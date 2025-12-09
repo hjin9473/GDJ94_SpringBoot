@@ -9,8 +9,8 @@ import com.winter.app.filters.UserFilter;
 
 import jakarta.servlet.Filter;
 
-@Configuration
-public class UserFilterMappingConfig implements WebMvcConfigurer{
+//@Configuration
+public class UserFilterMappingConfig implements WebMvcConfigurer {
 	
 	@Bean
 	FilterRegistrationBean<Filter> filterRegistrationBean(){
@@ -19,8 +19,6 @@ public class UserFilterMappingConfig implements WebMvcConfigurer{
 		f.addUrlPatterns("/qna/*", "/notice/add");
 		
 		return f;
-		
 	}
-	
-	
+
 }

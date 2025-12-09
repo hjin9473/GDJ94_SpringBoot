@@ -5,37 +5,44 @@
     
     <mapper namespace="com.winter.app.product.ProductDAO">
     	
+    	<!-- 리스트 보기 -->
     	<select id="list" parameterType="ProductDTO" resultType="ProductDTO">
-    		SELECT * FROM product
+    		SELECT * FROM products
     	</select>
     	
+    	<!-- 조회 -->
     	<select id="detail" parameterType="ProductDTO" resultType="ProductDTO">
-    		SELECT * FROM product WHERE product_num=#{productNum}
+    		SELECT * FROM products WHERE product_num=#{productNum}
     	</select>
     	
+    	<!-- 추가 -->
     	<insert id="add" parameterType="productDTO">
-    		INSERT INTO product 
-			(product_title, product_name, product_category, product_rate, product_sale)
+    		INSERT INTO products 
+			(product_name, product_contents, product_category, product_rate, product_sale)
 			VALUES
 			(#{productName} , #{productContents} , #{productCategory} , #{productRate} , #{productSale})
     	</insert>
     	
+    	<!-- 삭제 -->
     	<delete id="delete" parameterType="ProductDTO">
-    		DELETE FROM product
+    		DELETE FROM products
     		WHERE product_num = #{productNum}
     	</delete>
     	
     	
+    	<!-- 수정 -->
     	<update id="update" parameterType="ProductDTO">
-    		UPDATE product SET 
-	    		product_title = #{productName},
+    		UPDATE products SET 
+	    		product_name = #{productName},
 	    		product_category = #{productCategory},
 	    		product_rate = #{productRate},
-	    		product_name = #{productContents},
+	    		product_contents = #{productContents},
 	    		product_sale = #{productSale}
     		WHERE product_num = #{productNum}
     		
     	</update>
+    	
+    	<!--  댓글  -->
     	
     	<select id="commentList" resultType="ProductCommentDTO" parameterType="java.util.Map">
     		SELECT * FROM comment
@@ -44,9 +51,16 @@
     		Limit #{pager.startNum}, #{pager.perPage}
     	</select>
     	
+    	<select id="commentCount" parameterType="ProductCommentDTO" resultType="Long">
+    		SELECT COUNT(board_num) FROM comment
+    		WHERE product_num=#{productNum}
+    	</select>
+    	
     	<insert id="commentAdd" parameterType="ProductCommentDTO">
     		INSERT INTO comment 
     		VALUES (null, #{boardContents}, now(), #{productNum}, #{username})
     	</insert>
+    	
+    	
     	
     </mapper>

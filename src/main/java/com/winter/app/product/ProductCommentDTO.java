@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class ProductCommentDTO extends CommentDTO{
+public class ProductCommentDTO extends CommentDTO {
 	
 	private Long productNum;
 	private String username;

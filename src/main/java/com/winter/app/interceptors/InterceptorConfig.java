@@ -6,21 +6,25 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class InterceptorConfig implements WebMvcConfigurer{
+public class InterceptorConfig implements WebMvcConfigurer {
 
 	@Autowired
 	private UserInterceptor userInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		// TODO Auto-generated metho
+		// TODO Auto-generated method stub
 		registry
-		.addInterceptor(userInterceptor)
-		.addPathPatterns("/notice/*")
-		.excludePathPatterns("/notice/list", "/notice/detail")
+			.addInterceptor(userInterceptor)
+			.addPathPatterns("/notice/*")
+			.excludePathPatterns("/notice/list", "/notice/detail")
 		;
 		
+	
 	}
 	
 	
+	
+	
+
 }

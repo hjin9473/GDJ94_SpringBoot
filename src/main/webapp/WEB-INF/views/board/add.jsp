@@ -1,100 +1,111 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 추가</title>
+<title>Insert title here</title>
 <c:import url="/WEB-INF/views/template/head.jsp"></c:import>
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
-	rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.css" rel="stylesheet">
+    
 </head>
 <body id="page-top">
 	<div id="wrapper">
+		<!-- side bar -->
 		<c:import url="/WEB-INF/views/template/sidebar.jsp"></c:import>
-		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
+		<!-- side bar -->
+		
+		<!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+       			
+       			<!-- topbar -->
+       			<c:import url="/WEB-INF/views/template/topbar.jsp"></c:import>
+            	<!-- topbar -->
+            	
+            	<!-- Begin Page Content -->
+                <div class="container-fluid">
+                	<!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Add Form</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    </div>
+                    
+                    <!-- Content Row -->
+                    <div class="row justify-content-center mt-5">
+                    <div class="col-lg-6 mt-5">
 
-				<c:import url="/WEB-INF/views/template/topbar.jsp"></c:import>
-				<div class="container-fluid">
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">추가하기</h1>
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-					</div>
-					<div class="container-fluid">
-
-						<!-------------------------- Form --------------------------------------->
-						<form:form modelAttribute="dto" method="post" novalidate="novalidate"
-							enctype="multipart/form-data">
-							<form:hidden path="boardNum" />
-							<div class="mb-3">
-								<label for="boardWriter" class="form-label">작성자</label>
-								<form:input path="boardWriter" cssClass="form-control"
-									id="boardWriter" />
-							</div>
-							<div class="mb-3">
-								<label for="boardTitle" class="form-label">제목</label>
-								<form:input path="boardTitle" cssClass="form-control"
-									id="boardTitle" />
-								<form:errors path="boardTitle" cssClass="text-danger"></form:errors>
-							</div>
-							<div class="mb-3">
-								<label for="boardContents" class="form-label">내용</label>
-								<form:textarea path="boardContents" cssClass="form-control"
-									id="boardContents" rows="10" />
-								<form:errors path="boardContents" cssClass="text-danger"></form:errors>
-							</div>
-
-							<div class="form-group">
-								<button type="button" id="fileAdd" class="btn btn-primary">파일추가</button>
-							</div>
-							<div id="files" class="form-group"></div>
-
-							<div class="d-grid gap-2">
-								<button type="submit" class="btn btn-primary">등록</button>
-								<a href="./list" class="btn btn-secondary">취소</a>
-							</div>
-						</form:form>
-					</div>
-				</div>
-			</div>
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2021</span>
-					</div>
-				</div>
-			</footer>
-		</div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">${category} ${sub}</h6>
+                                </div>
+                                <div class="card-body">
+                                
+              <!--------------------- Form ------------------- -->
+              						<form:form modelAttribute="dto" method="post" enctype="multipart/form-data">
+                                   	  <form:hidden path="boardNum"/>
+                                   	 
+									  <div class="form-group">
+									    <label for="writer">Writer</label>
+									    <form:input path="boardWriter" cssClass="form-control" id="writer"/>
+									  </div>
+									  <div class="form-group">
+									    <label for="title">Title</label>
+									    <form:input path="boardTitle" cssClass="form-control" id="title"/>
+									  	<form:errors path="boardTitle"></form:errors>
+									  </div>
+									  
+									  <div class="form-group">
+									    <label for="contents">Contents</label>
+									    <form:textarea path="boardContents" cssClass="form-control" id="contents" rows="8"/>
+									  </div>
+									  
+									  <div class="form-group">
+									  	<button type="button" id="fileAdd"  class="form-control btn btn-primary" >File Add</button>
+									  	
+									  </div>
+									  
+									  <div id="files" class="form-group">
+									  
+									  </div>
+									
+									  <button type="submit" class="btn btn-primary">Submit</button>
+									</form:form> 
+                                </div>
+                             </div>
+                             
+                     </div>           
+                                        
+                    </div>
+                
+                </div>
+                <!-- /.container-fluid -->
+            </div> 
+            <!-- End of Main Content -->
+            
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+	
 	</div>
-
-	<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
-
-<script>
-	$(document).ready(function() {
-        // Summernote 초기화 코드를 try-catch로 감싸서, 실패하더라도
-        // 이후의 board.js 파일 로드나 다른 이벤트 등록을 막지 않도록 합니다.
-        try {
-            $('#boardContents').summernote({
-                height : 300,
-                focus : true
-            });
-        } catch (e) {
-            console.error("Summernote Initialization Error:", e);
-        }
-	});
+	
+<c:import url="/WEB-INF/views/template/foot.jsp"></c:import>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>	
+<script type="text/javascript">
+	$("#contents").summernote()
 </script>
-<script src="/js/board/board.js"></script>
+<script type="text/javascript" src="/js/board/board.js"></script>
+
 </body>
 </html>

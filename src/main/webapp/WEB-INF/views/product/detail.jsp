@@ -69,65 +69,47 @@
 					
 					        <!-- 상세 설명 -->
 					        <h6 class="font-weight-bold text-gray-700 mb-2">상품 설명</h6>
-        <p class="text-gray-900" style="line-height: 1.7;">
-            ${dto.productContents}
-        </p>
+					        <p class="text-gray-900" style="line-height: 1.7;">
+					            ${dto.productContents}
+					        </p>
+					
+					        <hr>
+					        
+					        <div id="list" data-product-num="${dto.productNum}" >
 
-        <hr>
-        
-        <h6 class="font-weight-bold text-gray-700 mb-3">댓글 목록</h6>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th style="width: 15%;">작성자</th>
-                        <th>내용</th>
-                        <th style="width: 20%;">작성일</th>
-                    </tr>
-                </thead>
-                <tbody id="list" data-product-num="${dto.productNum}">
-                    </tbody>
-            </table>
-        </div>
-        
-        <div class="card shadow p-4 mb-4 mt-4">
-            <h6 class="font-weight-bold text-gray-700 mb-2">댓글 달기</h6>
-            
-            <textarea id="boardContents" class="form-control mb-2" rows="2" placeholder="댓글을 입력하세요..." required></textarea>
-            
-            <input type="hidden" id="commentUsername" value="TestUser"> 
-
-            <div class="d-flex justify-content-end">
-                <button id="commentAddBtn" class="btn btn-primary btn-sm">등록</button>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-between mt-3">
-
-            <a href="./list" class="btn btn-secondary">
-                ← 목록으로
-            </a>
-
-            <div>
-                <a href="./update?productNum=${dto.productNum}" 
-                    class="btn btn-warning text-dark mr-2">
-                    수정하기
-                </a>
-                <form action="./delete" method="post" class="d-inline"
-                        onsubmit="return confirm('정말 삭제하시겠습니까?');">
-                    
-                    <input type="hidden" name="productNum" value="${dto.productNum}">
-                    
-                    <button type="submit" class="btn btn-danger">
-                        삭제
-                    </button>
-                </form>
-            </div>
-
-        </div>
-
-    </div>
-</div>
+					        </div>
+					
+					        <!-- 버튼 영역 -->
+					        <div class="d-flex justify-content-between mt-3">
+					
+					            <a href="./list" class="btn btn-secondary">
+					                ← 목록으로
+					            </a>
+					
+					            <div>
+					            	<button class="btn btn-danger mr-2 ">장바구니</button>
+					            	
+					            	<button class="btn btn-primary mr-2 " data-toggle="modal" data-target="#commentModal">댓글달기</button>
+					            
+					                <a href="./update?productNum=${dto.productNum}" 
+					                   class="btn btn-warning text-dark mr-2">
+					                    수정하기
+					                </a>
+									<form action="./delete" method="post" class="d-inline"
+									      onsubmit="return confirm('정말 삭제하시겠습니까?');">
+									
+									    <input type="hidden" name="productNum" value="${dto.productNum}">
+									
+									    <button type="submit" class="btn btn-danger">
+									        삭제
+									    </button>
+									</form>
+					            </div>
+					
+					        </div>
+					
+					    </div>
+					</div>
                     
                     </div>
                 
@@ -149,6 +131,30 @@
 	
 	</div>
 	
+
+	<!-- modal -->
+	<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       	<form method="post">
+	       		<input type="hidden" value="${dto.productNum}">
+	       		<textarea rows="" cols="" id="contents" name="boardContents"></textarea>
+	       	</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" id="commentAdd" class="btn btn-primary">댓글등록</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 	<c:import url="/WEB-INF/views/template/foot.jsp"/>
 	<script type="text/javascript" src="/js/product/product_comment.js"></script>
