@@ -1,5 +1,6 @@
 package com.winter.app.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	@Autowired
+	private LoginSuccessHandler loginSuccessHandler;
 	
 	//정적자원들을 Security에서 제외
 	@Bean
@@ -52,12 +56,14 @@ public class SecurityConfig {
 				form
 					//로그인폼 jsp 경로로 가는 url과 로그인 처리 url 작성
 					.loginPage("/users/login")
+					//로그인 진행할 URL
+					.loginProcessingUrl("/users/login")
 					//.usernameParameter("id")
 					//.passwordParameter("pw")
 					.defaultSuccessUrl("/")
 					//.failureUrl("/")
+					.successHandler(loginSuccessHandler)
 					;
-				
 				
 				
 			})

@@ -50,7 +50,7 @@
                                 <div class="card-footer">
                                 	
                                 	<a href="./update" class="btn btn-primary">Update</a>
-									<a href="./change" class="btn btn-danger">비번변경</a>
+																	<a href="./change" class="btn btn-danger">비번변경</a>
                                 </div>
                              </div>
                              

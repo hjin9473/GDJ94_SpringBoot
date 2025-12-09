@@ -7,17 +7,17 @@
     	
     	<!-- 리스트 보기 -->
     	<select id="list" parameterType="ProductDTO" resultType="ProductDTO">
-    		SELECT * FROM products
+    		SELECT * FROM product
     	</select>
     	
     	<!-- 조회 -->
     	<select id="detail" parameterType="ProductDTO" resultType="ProductDTO">
-    		SELECT * FROM products WHERE product_num=#{productNum}
+    		SELECT * FROM product WHERE product_num=#{productNum}
     	</select>
     	
     	<!-- 추가 -->
     	<insert id="add" parameterType="productDTO">
-    		INSERT INTO products 
+    		INSERT INTO product 
 			(product_name, product_contents, product_category, product_rate, product_sale)
 			VALUES
 			(#{productName} , #{productContents} , #{productCategory} , #{productRate} , #{productSale})
@@ -25,14 +25,14 @@
     	
     	<!-- 삭제 -->
     	<delete id="delete" parameterType="ProductDTO">
-    		DELETE FROM products
+    		DELETE FROM product
     		WHERE product_num = #{productNum}
     	</delete>
     	
     	
     	<!-- 수정 -->
     	<update id="update" parameterType="ProductDTO">
-    		UPDATE products SET 
+    		UPDATE product SET 
 	    		product_name = #{productName},
 	    		product_category = #{productCategory},
 	    		product_rate = #{productRate},

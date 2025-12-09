@@ -2,6 +2,11 @@ package com.winter.app.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,11 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/users/*")
 public class UserController {
 	
 	@Autowired
@@ -45,37 +51,40 @@ public class UserController {
 		return "redirect:/";
 	}
 	@GetMapping("mypage")
-	public void detail()throws Exception{
-		
+	public void detail(@AuthenticationPrincipal UserDTO userDTO, Model model)throws Exception{
+		userDTO = userService.detail(userDTO);
+		model.addAttribute("user", userDTO);
 	}
+	
+	
 	@GetMapping("login")
 	public void login()throws Exception{}	
 	
 
 	
 	@GetMapping("update")
-	public void update(HttpSession session,Model model)throws Exception{
+	public void update(@AuthenticationPrincipal UserDTO userDTO, Model model)throws Exception{
 		
-		model.addAttribute("userDTO", session.getAttribute("user"));
+		model.addAttribute("userDTO", userDTO);
 	}
 	
-	@PostMapping("update")
-	public String update(@Validated(UpdateGroup.class) UserDTO userDTO, BindingResult bindingResult,HttpSession session)throws Exception{
-		if(bindingResult.hasErrors()) {
-			return "users/update";
-		}
-		
-		UserDTO loginDTO = (UserDTO)session.getAttribute("user");
-		userDTO.setUsername(loginDTO.getUsername());
-		int result = userService.update(userDTO);
-		
-		if(result>0) {
-			loginDTO=userService.detail(loginDTO);
-			session.setAttribute("user", loginDTO);
-		}
-		
-		return "redirect:/";
-	}
+	   @PostMapping("update")
+	   public String update(@Validated(RegisterGroup.class) UserDTO usersDTO, BindingResult bindingResult, Authentication authentication) throws Exception{
+	      if (bindingResult.hasErrors()) {
+	         return "users/update";
+	      }
+	      
+	      usersDTO.setUsername(authentication.getName());
+	      
+	      int result = userService.update(usersDTO);
+	      
+	      if (result > 0) {
+	         UsernamePasswordAuthenticationToken to = new UsernamePasswordAuthenticationToken(bindingResult, authentication.getCredentials(), authentication.getAuthorities());
+	         SecurityContextHolder.getContext().setAuthentication(to);
+	      }
+	      
+	      return "redirect:/";
+	   }
 	
 	@GetMapping("change")
 	public void change(UserDTO userDTO)throws Exception{

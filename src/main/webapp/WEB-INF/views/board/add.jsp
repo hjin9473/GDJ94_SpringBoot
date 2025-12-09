@@ -49,10 +49,10 @@
               						<form:form modelAttribute="dto" method="post" enctype="multipart/form-data">
                                    	  <form:hidden path="boardNum"/>
                                    	 
-									  <div class="form-group">
+								<%-- 	  <div class="form-group">
 									    <label for="writer">Writer</label>
-									    <form:input path="boardWriter" cssClass="form-control" id="writer"/>
-									  </div>
+									    <form:input path="boardWriter" disabled cssClass="form-control" id="writer"/>
+									  </div> --%>
 									  <div class="form-group">
 									    <label for="title">Title</label>
 									    <form:input path="boardTitle" cssClass="form-control" id="title"/>

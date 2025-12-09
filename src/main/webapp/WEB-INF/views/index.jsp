@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %> 
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>   
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,16 +42,27 @@
                     </div>
                     
                     <!-- 생성한 contents 작성 -->
-                    <c:if test="${not empty user}">
+                   <sec:authorize access="isAuthenticated()">
                     	<h1>Login 성공</h1>
+                    	<sec:authentication property="principal" var="user" />
+                    	
+                    	<h1>${user.username}</h1>
+                    	<h1>${user.email}</h1>
+                    	<h3>
+                    	<sec:authentication property="principal.phone"/>
+                    	</h3>
+                    	<h3>
+                    		<sec:authentication property="name"/>
+                    	</h3>
                     	<spring:message code="message.welcome" arguments="${user.username},${user.birth}" argumentSeparator="," var="m"></spring:message>
                     	<hr />
                     	<h3>${m}</h3>
-                    </c:if>
+                   </sec:authorize>
                     
-                    <c:if test="${empty user}">
+                   <sec:authorize access="!isAuthenticated()">
                     	<h1>Login 필요</h1>
-                    </c:if>
+                    
+                    </sec:authorize>
                     
                     </div>
                     

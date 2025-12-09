@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -67,14 +68,16 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String add(@ModelAttribute("dto") @Valid NoticeDTO noticeDTO,BindingResult bindingResult ,MultipartFile [] attach)throws Exception{
+	public String add(@ModelAttribute("dto") @Valid NoticeDTO noticeDTO,BindingResult bindingResult ,MultipartFile [] attach, Authentication authentication)throws Exception{
 		
 		if(bindingResult.hasErrors()) {
 			
 			return "board/add";
 		}
 		
-		//int result = noticeService.add(noticeDTO, attach);
+		noticeDTO.setBoardWriter(authentication.getName());
+		
+		int result = noticeService.add(noticeDTO, attach);
 		
 		return "redirect:./list";
 		
