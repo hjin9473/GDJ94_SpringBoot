@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,7 +21,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class UserDTO implements UserDetails{
+public class UserDTO implements UserDetails, OAuth2User{
 	
 	@NotBlank(groups = {RegisterGroup.class})
 	private String username;
@@ -49,6 +51,10 @@ public class UserDTO implements UserDetails{
 	private boolean credentialsNonExpired;
 	private boolean enabled;
 	
+	
+	
+	
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -61,6 +67,26 @@ public class UserDTO implements UserDetails{
 		
 		return list;
 	}
+
+
+
+
+	//OAuth2User
+	public Map<String, Object> getAttributes;
+	private String sns;
+	
+
+
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
 	
 	
 
