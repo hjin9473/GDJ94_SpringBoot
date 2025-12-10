@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>    
+<%@ taglib prefix="c" uri="jakarta.tags.core" %> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +52,7 @@
                                 <div class="card-footer">
                                 	
                                 	<a href="./update" class="btn btn-primary">Update</a>
-																	<a href="./change" class="btn btn-danger">비번변경</a>
+									<a href="./change" class="btn btn-danger">비번변경</a>
                                 </div>
                              </div>
                              

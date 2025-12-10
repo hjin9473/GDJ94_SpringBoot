@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %> 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>   
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +61,7 @@
                     
                    <sec:authorize access="!isAuthenticated()">
                     	<h1>Login 필요</h1>
-                    
+                    	<a href="/oauth2/authorization/kakao">카카오로그인</a>
                     </sec:authorize>
                     
                     </div>

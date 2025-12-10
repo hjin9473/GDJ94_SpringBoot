@@ -6,7 +6,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -55,36 +53,45 @@ public class UserController {
 		userDTO = userService.detail(userDTO);
 		model.addAttribute("user", userDTO);
 	}
-	
-	
 	@GetMapping("login")
-	public void login()throws Exception{}	
+	public String login(HttpSession session)throws Exception{
+		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+		
+		if(obj != null) {
+			return "redirect:/";
+		}
+		
+		return "users/login";
+	}	
 	
 
 	
 	@GetMapping("update")
-	public void update(@AuthenticationPrincipal UserDTO userDTO, Model model)throws Exception{
+	public void update(@AuthenticationPrincipal UserDTO userDTO ,Model model)throws Exception{
 		
 		model.addAttribute("userDTO", userDTO);
 	}
 	
-	   @PostMapping("update")
-	   public String update(@Validated(RegisterGroup.class) UserDTO usersDTO, BindingResult bindingResult, Authentication authentication) throws Exception{
-	      if (bindingResult.hasErrors()) {
-	         return "users/update";
-	      }
-	      
-	      usersDTO.setUsername(authentication.getName());
-	      
-	      int result = userService.update(usersDTO);
-	      
-	      if (result > 0) {
-	         UsernamePasswordAuthenticationToken to = new UsernamePasswordAuthenticationToken(bindingResult, authentication.getCredentials(), authentication.getAuthorities());
-	         SecurityContextHolder.getContext().setAuthentication(to);
-	      }
-	      
-	      return "redirect:/";
-	   }
+	@PostMapping("update")
+	public String update(@Validated(UpdateGroup.class) UserDTO userDTO, BindingResult bindingResult,Authentication authentication)throws Exception{
+		if(bindingResult.hasErrors()) {
+			return "users/update";
+		}
+		
+		
+		userDTO.setUsername(authentication.getName());
+		
+		int result = userService.update(userDTO);
+		
+//		if(result>0) {
+//			//DB에서 사용자를 조회 해야 함
+//			UsernamePasswordAuthenticationToken to = new UsernamePasswordAuthenticationToken(userDTO, authentication.getCredentials(),authentication.getAuthorities());
+//			SecurityContextHolder.getContext().setAuthentication(to);
+//			
+//		}
+		
+		return "redirect:/";
+	}
 	
 	@GetMapping("change")
 	public void change(UserDTO userDTO)throws Exception{

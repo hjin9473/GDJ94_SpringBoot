@@ -17,7 +17,7 @@
     	
     	<!-- 추가 -->
     	<insert id="add" parameterType="productDTO">
-    		INSERT INTO product 
+    		INSERT INTO product
 			(product_name, product_contents, product_category, product_rate, product_sale)
 			VALUES
 			(#{productName} , #{productContents} , #{productCategory} , #{productRate} , #{productSale})

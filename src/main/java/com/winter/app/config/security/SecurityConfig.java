@@ -10,12 +10,26 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.winter.app.users.UserDetailSerivceImpl;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 	
 	@Autowired
 	private LoginSuccessHandler loginSuccessHandler;
+	
+	@Autowired
+	private LoginFailHandler loginFailHandler;
+	
+	@Autowired
+	private Logout logout;
+	
+	@Autowired
+	private LogoutSucess logoutSucess;
+	
+	@Autowired
+	private UserDetailSerivceImpl detailSerivceImpl;
 	
 	//정적자원들을 Security에서 제외
 	@Bean
@@ -60,10 +74,13 @@ public class SecurityConfig {
 					.loginProcessingUrl("/users/login")
 					//.usernameParameter("id")
 					//.passwordParameter("pw")
-					.defaultSuccessUrl("/")
+					//.defaultSuccessUrl("/")
 					//.failureUrl("/")
 					.successHandler(loginSuccessHandler)
+					.failureHandler(loginFailHandler)
+					
 					;
+				
 				
 				
 			})
@@ -71,11 +88,39 @@ public class SecurityConfig {
 			.logout((logout)->{
 				logout
 					.logoutUrl("/users/logout")
-					.logoutSuccessUrl("/")
+					//.logoutSuccessUrl("/")
+					.addLogoutHandler(this.logout)
+					.logoutSuccessHandler(logoutSucess)
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
 					;
 			})
+			
+			.rememberMe(remember->{
+				remember
+						.rememberMeParameter("rememberme")
+						.tokenValiditySeconds(60)
+						.key("rememberkey")
+						.userDetailsService(detailSerivceImpl)
+						.authenticationSuccessHandler(loginSuccessHandler)
+						.useSecureCookie(true)
+						;
+			})
+			.sessionManagement(session -> {
+				session
+						.invalidSessionUrl("/")
+						.maximumSessions(1)
+						.maxSessionsPreventsLogin(true)
+						;
+			})
+			
+			
+			.oauth2Login(t -> {
+				t.userInfoEndpoint((s) -> {
+					s.userService(detailSerivceImpl);
+				});
+			})
+			
 			
 			
 			;
