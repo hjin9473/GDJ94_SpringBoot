@@ -90,7 +90,7 @@ public class SecurityConfig {
 					.logoutUrl("/users/logout")
 					//.logoutSuccessUrl("/")
 					.addLogoutHandler(this.logout)
-					.logoutSuccessHandler(logoutSucess)
+					//.logoutSuccessHandler(logoutSucess)
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
 					;
