@@ -42,6 +42,7 @@
                     </div>
                     
                     <!-- 생성한 contents 작성 -->
+                    <h1>Remote 뭐시기</h1>
                    <sec:authorize access="isAuthenticated()">
                     	<h1>Login 성공</h1>
                     	<sec:authentication property="principal" var="user" />

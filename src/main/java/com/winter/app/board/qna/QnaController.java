@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +21,7 @@ import com.winter.app.board.BoardFileDTO;
 import com.winter.app.board.notice.NoticeDTO;
 import com.winter.app.util.Pager;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -39,11 +42,6 @@ public class QnaController {
 	
 	@GetMapping("list")
 	public String list(Pager pager, Model model)throws Exception{
-		
-		if (pager != null) {
-			throw new NullPointerException();
-		}
-		
 
 		List<BoardDTO> list= qnaService.list(pager);
 		
@@ -65,20 +63,29 @@ public class QnaController {
 
 	
 	@GetMapping("add")
-	public String add()throws Exception{
+	public String add(@ModelAttribute("dto") QnaDTO qnaDTO)throws Exception{
 		return "board/add";
 	}
 	
 	@PostMapping("add")
-	public String add(QnaDTO qnaDTO, MultipartFile [] attach)throws Exception{
+	public String add(@ModelAttribute("dto") @Valid QnaDTO qnaDTO,BindingResult bindingResult, Authentication authentication, MultipartFile [] attach)throws Exception{
 		qnaDTO.setBoardRef(0L);
 		qnaDTO.setBoardDepth(0L);
 		qnaDTO.setBoardStep(0L);
+		
+		if(bindingResult.hasErrors()) {
+			
+			return "board/add";
+		}
+		
+		qnaDTO.setBoardWriter(authentication.getName());
+		
 		int result = qnaService.add(qnaDTO, attach);
 		
 		return "redirect:./list";
 		
 	}
+
 	
 	@GetMapping("update")
 	public String update(QnaDTO qnaDTO, Model model)throws Exception{

@@ -42,7 +42,7 @@ public class Logout implements LogoutHandler{
 		if (userDTO.getSns() == null) {
 			// 카카오 계정과 함께 로그아웃
 			try {
-				response.sendRedirect("https://kauth.kakao.com/oauth/logout?client_id=" + restKey + "&logout_redirect_uri=http://localhost");
+				response.sendRedirect("https://kauth.kakao.com/oauth/logout?client_id=" + restKey + "&logout_redirect_uri=http://15.164.214.111");
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
